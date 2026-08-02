@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Touqeer Khan Pathan — Laravel &amp; Shopify Backend Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f5f1;
+    --ink:#1b1d22;
+    --muted:#6f7480;
+    --accent:#2f6f5e;
+    --line:#e2e3dd;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif{ font-family:'Fraunces', serif; }
+  a{ color:var(--accent); text-decoration:underline; text-decoration-color:rgba(47,111,94,0.35); text-underline-offset:3px; }
+  a:hover{ text-decoration-color:var(--accent); }
+  a:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  strong{ font-weight:600; }
+
+  .wrap{ max-width:660px; margin:0 auto; padding:80px 24px 100px; }
+
+  /* header */
+  header h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:36px;
+    margin:0 0 10px;
+    letter-spacing:-0.01em;
+  }
+  header .role{
+    color:var(--muted);
+    font-size:15px;
+    margin-bottom:16px;
+  }
+  header .contact{ font-size:14px; }
+  header .contact a{ color:var(--ink); }
+  header .contact .sep{ color:var(--line); margin:0 8px; }
+
+  /* intro */
+  .intro{ margin:44px 0 8px; max-width:58ch; }
+  .intro .lede{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:22px;
+    line-height:1.5;
+    color:var(--ink);
+  }
+  .intro p{ margin:18px 0 0; font-size:15.5px; color:var(--ink); }
+
+  /* thread */
+  .thread{
+    position:relative;
+    margin-top:64px;
+    padding-left:28px;
+    border-left:2px solid var(--line);
+  }
+  .thread section{ margin-bottom:60px; position:relative; }
+  .thread section:last-child{ margin-bottom:0; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.09em;
+    color:var(--muted);
+    margin-bottom:8px;
+    position:relative;
+  }
+  .eyebrow::before{
+    content:"";
+    position:absolute;
+    left:-34.5px;
+    top:5px;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px var(--paper);
+  }
+  section h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:24px;
+    margin:0 0 20px;
+  }
+
+  /* specialization */
+  .spec-item{ font-size:15.5px; margin-bottom:16px; max-width:58ch; }
+  .spec-item:last-child{ margin-bottom:0; }
+  .spec-item strong{ color:var(--ink); }
+
+  /* case studies */
+  .case{ margin-bottom:40px; max-width:60ch; }
+  .case:last-of-type{ margin-bottom:24px; }
+  .case h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-style:italic;
+    font-size:19px;
+    margin:0 0 12px;
+  }
+  .case p{ font-size:15.5px; margin:0 0 14px; }
+  .case p:last-child{ margin-bottom:0; }
+
+  .shift{
+    margin:22px 0;
+    padding:18px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:16.5px;
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .shift .arrow{
+    color:var(--accent);
+    font-style:normal;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+  }
+
+  .also{ font-size:15px; color:var(--muted); max-width:60ch; }
+
+  /* skills */
+  .skill-row{ font-size:15px; margin-bottom:12px; max-width:60ch; }
+  .skill-row:last-child{ margin-bottom:0; }
+  .skill-row .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:block;
+    margin-bottom:4px;
+  }
+
+  /* experience */
+  .role-item{ margin-bottom:32px; }
+  .role-item:last-child{ margin-bottom:0; }
+  .role-item .when{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .role-item h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:17px;
+    margin:0 0 2px;
+  }
+  .role-item .co{ font-size:13.5px; color:var(--muted); margin-bottom:10px; }
+  .role-item ul{ margin:0; padding-left:18px; font-size:15px; }
+  .role-item li{ margin-bottom:6px; }
+  .role-item li:last-child{ margin-bottom:0; }
+
+  /* closing */
+  .closing{ margin-top:72px; max-width:58ch; }
+  .closing p{ font-size:16px; margin:0 0 16px; }
+  .closing .contact-line{ font-size:15px; }
+  .closing .contact-line .sep{ color:var(--line); margin:0 8px; }
+
+  footer{
+    margin-top:64px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-size:12.5px;
+    color:var(--muted);
+  }
+
+  @media (max-width:520px){
+    .wrap{ padding:56px 20px 72px; }
+    header h1{ font-size:29px; }
+    .thread{ padding-left:20px; }
+    .eyebrow::before{ left:-26.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Touqeer Khan Pathan</h1>
+    <div class="role">Laravel &amp; Shopify backend developer — Ahmedabad, India</div>
+    <div class="contact">
+      <a href="mailto:touqeerpathan75@gmail.com">touqeerpathan75@gmail.com</a><span class="sep">·</span><a href="tel:+917990847685">+91 79908 47685</a><span class="sep">·</span><a href="https://linkedin.com/in/touqeer-pathan" target="_blank" rel="noopener">linkedin</a><span class="sep">·</span><a href="https://github.com/touqeerpathan" target="_blank" rel="noopener">github</a>
+    </div>
+  </header>
+
+  <div class="intro">
+    <div class="lede">Most of what I build lives behind the parts of checkout a customer never thinks about.</div>
+    <p>I'm a Laravel and Shopify backend developer based in Ahmedabad, and over the last three years my work has drifted toward the newer, less-covered pieces — Checkout UI Extensions, Discount Functions, Cart Transform Functions, Payment Extensions — along with the security side of it: OWASP-driven reviews, payment token handling, webhook verification. Most of what I know there came from fixing a real vulnerability, not a course.</p>
+  </div>
+
+  <div class="thread">
+
+    <section id="specialization">
+      <div class="eyebrow">SPECIALIZATION</div>
+      <h2>Where I focus</h2>
+      <div class="spec-item"><strong>Checkout Extensibility</strong> — building on Shopify's App Bridge CLI 3.0 to extend checkout and storefronts without touching the deprecated checkout.liquid path, which is where Shopify is pushing every merchant right now.</div>
+      <div class="spec-item"><strong>Shopify Functions</strong> — discount and cart-transform logic, tiered pricing, bundles, automatic offers, written as server-side functions instead of theme-layer hacks.</div>
+      <div class="spec-item"><strong>Payment security</strong> — custom Payment Extensions built with PCI-conscious flows, server-side token storage, and webhook signature verification.</div>
+    </section>
+
+    <section id="work">
+      <div class="eyebrow">CASE STUDIES</div>
+      <h2>Two projects, in detail</h2>
+
+      <div class="case">
+        <h3>A finance platform's Payment Extension, end to end</h3>
+        <p>The brief was bigger than a bug fix: connect a finance-sector merchant's own payment platform to Shopify checkout through a fully custom Payment Extension authorization, transaction status, the works, not just a themed checkout button.</p>
+        <p>While building that integration, the existing approach was exposing API tokens in frontend requests, with payment data protection that didn't hold up to what a finance client needs.</p>
+        <div class="shift">
+          <span>Tokens sent straight from the browser</span>
+          <span class="arrow">→</span>
+          <span>Tokens verified and held server-side</span>
+        </div>
+        <p>Result: a working, PCI-conscious Payment Extension linking the merchant's finance platform to Shopify checkout, with the token-exposure gap closed as part of the build not bolted on after.</p>
+      </div>
+
+      <div class="case">
+        <h3>Loyalty points, built into checkout</h3>
+        <p>A merchant wanted customers to earn and redeem loyalty points without leaving checkout. I designed and built a Shopify app around a third-party Stamp Loyalty API, so points issuance and redemption happen natively at checkout instead of through a separate portal.</p>
+      </div>
+
+      <p class="also">Also shipped: a waste management platform with full RBAC across collectors, customers, warehouses, and vehicle assignment; a grocery delivery platform with real-time order management and inventory tracking; and a social/dating platform with real-time chat and matchmaking.</p>
+    </section>
+
+    <section id="skills">
+      <div class="eyebrow">SKILLS</div>
+      <h2>Stack &amp; tooling</h2>
+      <div class="skill-row"><span class="label">Core</span>PHP, Laravel, JavaScript, Node.js, SQL</div>
+      <div class="skill-row"><span class="label">Shopify</span>Checkout UI Extensions, Discount Functions, Cart Transform Functions, Payment Extensions, Theme App Extensions, App Bridge CLI, Admin API/GraphQL, Webhooks</div>
+      <div class="skill-row"><span class="label">Security</span>OWASP Top 10, Laravel Sanctum, OAuth 2.0, JWT, RBAC, CSRF Protection, Bcrypt Hashing, Input Validation</div>
+      <div class="skill-row"><span class="label">Database &amp; API</span>MySQL, Eloquent ORM, Schema Design, REST API Design, GraphQL API, Postman</div>
+    </section>
+
+    <section id="experience">
+      <div class="eyebrow">EXPERIENCE</div>
+      <h2>Where I've worked</h2>
+
+      <div class="role-item">
+        <div class="when">Jul 2023 — current</div>
+        <h3>Web Developer</h3>
+        <div class="co">Shiv Technolabs Pvt. Ltd., Ahmedabad</div>
+        <ul>
+          <li>Built custom Shopify apps using App Bridge, Checkout UI Extensions, and Theme App Extensions for fintech and e-commerce clients.</li>
+          <li>Developed Discount Function and Cart Transform extensions for promotional logic and checkout-time cart modification.</li>
+          <li>Integrated Paystack, Flutterwave, and Checkout.com with webhook signature validation and real-time payment status handling.</li>
+          <li>Applied OWASP Top 10 practices across every project input validation, CSRF/XSS/SQLi prevention, Bcrypt hashing, RBAC.</li>
+          <li>Took part in adversarial code review sessions, evaluating implementations from an attacker's perspective.</li>
+        </ul>
+      </div>
+
+      <div class="role-item">
+        <div class="when">Jan 2023 — Jul 2023</div>
+        <h3>Trainee Web Developer</h3>
+        <div class="co">Shiv Technolabs Pvt. Ltd., Ahmedabad</div>
+        <ul>
+          <li>Developed Laravel backend modules with CRUD operations, Eloquent ORM relationships, and database schema design.</li>
+          <li>Built and tested RESTful API endpoints with authentication flows, input validation, and sanitization.</li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="closing">
+    <p>If you're dealing with a Shopify Functions build, a Checkout Extensibility migration, or a Payment Extension that needs a security pass I'm around.</p>
+    <div class="contact-line">
+      <a href="mailto:touqeerpathan75@gmail.com">touqeerpathan75@gmail.com</a><span class="sep">·</span><a href="tel:+917990847685">+91 79908 47685</a>
+    </div>
+  </div>
+
+  <footer>Touqeer Khan Pathan — Ahmedabad, India</footer>
+
+</div>
+</body>
+</html>
