@@ -3,295 +3,957 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Touqeer Khan Pathan — Laravel &amp; Shopify Backend Developer</title>
+<title>Touqeer Pathan — Laravel & Shopify Backend Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#f5f5f1;
-    --ink:#1b1d22;
-    --muted:#6f7480;
-    --accent:#2f6f5e;
-    --line:#e2e3dd;
-  }
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Inter', sans-serif;
-    font-size:16px;
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-  }
-  .serif{ font-family:'Fraunces', serif; }
-  a{ color:var(--accent); text-decoration:underline; text-decoration-color:rgba(47,111,94,0.35); text-underline-offset:3px; }
-  a:hover{ text-decoration-color:var(--accent); }
-  a:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-  strong{ font-weight:600; }
+/* ── reset & tokens ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:        #0f1117;
+  --bg2:       #161920;
+  --bg3:       #1e2128;
+  --card:      #181c23;
+  --border:    #272b36;
+  --border2:   #2f3440;
+  --ink:       #e8e6e0;
+  --ink2:      #b0b4c1;
+  --muted:     #6b7180;
+  --accent:    #3ecf8e;
+  --accent2:   #2ab57a;
+  --accent-bg: rgba(62,207,142,0.08);
+  --accent-border: rgba(62,207,142,0.22);
+  --red:       #ff6b6b;
+  --yellow:    #f5c842;
+  --mono:      'JetBrains Mono', monospace;
+  --sans:      'Inter', sans-serif;
+  --display:   'Syne', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: var(--accent); text-decoration: none; transition: opacity .15s; }
+a:hover { opacity: .8; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-  .wrap{ max-width:660px; margin:0 auto; padding:80px 24px 100px; }
+/* ── noise overlay ──────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 0;
+}
 
-  /* header */
-  header h1{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:36px;
-    margin:0 0 10px;
-    letter-spacing:-0.01em;
-  }
-  header .role{
-    color:var(--muted);
-    font-size:15px;
-    margin-bottom:16px;
-  }
-  header .contact{ font-size:14px; }
-  header .contact a{ color:var(--ink); }
-  header .contact .sep{ color:var(--line); margin:0 8px; }
+/* ── layout ─────────────────────────────────────────── */
+.page { position: relative; z-index: 1; }
 
-  /* intro */
-  .intro{ margin:44px 0 8px; max-width:58ch; }
-  .intro .lede{
-    font-family:'Fraunces', serif;
-    font-style:italic;
-    font-weight:500;
-    font-size:22px;
-    line-height:1.5;
-    color:var(--ink);
-  }
-  .intro p{ margin:18px 0 0; font-size:15.5px; color:var(--ink); }
+/* ── nav ────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+  background: rgba(15,17,23,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.03em;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--mono);
+  transition: color .15s;
+}
+.nav-links a:hover { color: var(--accent); opacity: 1; }
+.nav-cta {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent) !important;
+  border: 1px solid var(--accent-border);
+  padding: 7px 16px;
+  border-radius: 4px;
+  background: var(--accent-bg);
+  transition: background .15s, border-color .15s !important;
+}
+.nav-cta:hover { background: rgba(62,207,142,0.14) !important; border-color: var(--accent) !important; opacity: 1 !important; }
 
-  /* thread */
-  .thread{
-    position:relative;
-    margin-top:64px;
-    padding-left:28px;
-    border-left:2px solid var(--line);
-  }
-  .thread section{ margin-bottom:60px; position:relative; }
-  .thread section:last-child{ margin-bottom:0; }
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.09em;
-    color:var(--muted);
-    margin-bottom:8px;
-    position:relative;
-  }
-  .eyebrow::before{
-    content:"";
-    position:absolute;
-    left:-34.5px;
-    top:5px;
-    width:9px;
-    height:9px;
-    border-radius:50%;
-    background:var(--accent);
-    box-shadow:0 0 0 3px var(--paper);
-  }
-  section h2{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:24px;
-    margin:0 0 20px;
-  }
+/* ── hero ────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 40px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.hero-tag::before {
+  content: '';
+  display: block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+  50% { opacity: .5; box-shadow: 0 0 2px var(--accent); }
+}
+.hero h1 {
+  font-family: var(--display);
+  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.hero h1 .line2 {
+  color: var(--accent);
+  display: block;
+}
+.hero-subtitle {
+  font-family: var(--display);
+  font-size: clamp(18px, 2.8vw, 28px);
+  font-weight: 500;
+  color: var(--ink2);
+  margin-bottom: 36px;
+  line-height: 1.3;
+  max-width: 680px;
+}
+.hero-lede {
+  font-size: 16px;
+  color: var(--ink2);
+  max-width: 560px;
+  line-height: 1.8;
+  margin-bottom: 52px;
+}
+.hero-lede em {
+  font-style: italic;
+  color: var(--ink);
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #0a1a12;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 5px;
+  transition: transform .15s, box-shadow .15s;
+  letter-spacing: 0.03em;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(62,207,142,0.3); opacity: 1; }
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border2);
+  color: var(--ink2);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 5px;
+  transition: border-color .15s, color .15s;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
+.hero-contacts {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 52px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.hero-contacts a {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: color .15s;
+}
+.hero-contacts a:hover { color: var(--accent); opacity: 1; }
+.hero-contacts .icon { font-size: 14px; }
 
-  /* specialization */
-  .spec-item{ font-size:15.5px; margin-bottom:16px; max-width:58ch; }
-  .spec-item:last-child{ margin-bottom:0; }
-  .spec-item strong{ color:var(--ink); }
+/* ── section scaffold ─────────────────────────────────── */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 40px;
+  border-top: 1px solid var(--border);
+}
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 60px;
+}
+.section-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: block;
+}
 
-  /* case studies */
-  .case{ margin-bottom:40px; max-width:60ch; }
-  .case:last-of-type{ margin-bottom:24px; }
-  .case h3{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-style:italic;
-    font-size:19px;
-    margin:0 0 12px;
-  }
-  .case p{ font-size:15.5px; margin:0 0 14px; }
-  .case p:last-child{ margin-bottom:0; }
+/* ── specialization ───────────────────────────────────── */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.spec-card {
+  background: var(--card);
+  padding: 36px 32px;
+  transition: background .15s;
+}
+.spec-card:hover { background: var(--bg3); }
+.spec-card-icon {
+  font-size: 28px;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+.spec-card h3 {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.spec-card p {
+  font-size: 14.5px;
+  color: var(--ink2);
+  line-height: 1.7;
+}
+.spec-tag {
+  display: inline-block;
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 3px;
+  padding: 3px 8px;
+  letter-spacing: 0.05em;
+}
 
-  .shift{
-    margin:22px 0;
-    padding:18px 0;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    font-family:'Fraunces', serif;
-    font-style:italic;
-    font-size:16.5px;
-    color:var(--ink);
-    display:flex;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:12px;
-  }
-  .shift .arrow{
-    color:var(--accent);
-    font-style:normal;
-    font-family:'Inter',sans-serif;
-    font-weight:600;
-  }
+/* ── case studies ─────────────────────────────────────── */
+.case-grid { display: flex; flex-direction: column; gap: 2px; }
+.case-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.case-card-header {
+  padding: 40px 44px 0;
+}
+.case-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: block;
+}
+.case-card h3 {
+  font-family: var(--display);
+  font-size: clamp(20px, 3vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.case-card p {
+  font-size: 15px;
+  color: var(--ink2);
+  line-height: 1.75;
+  max-width: 62ch;
+  margin-bottom: 16px;
+}
+.case-card p:last-of-type { margin-bottom: 0; }
 
-  .also{ font-size:15px; color:var(--muted); max-width:60ch; }
+/* terminal diff block */
+.diff-block {
+  margin: 32px 44px;
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 13px;
+}
+.diff-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 16px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #ff5f57; }
+.dot-y { background: #febc2e; }
+.dot-g { background: #28c840; }
+.diff-titlebar span {
+  margin-left: 4px;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+.diff-body { padding: 20px; background: #0d1117; }
+.diff-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 5px 0;
+  border-radius: 4px;
+}
+.diff-row.removed { background: rgba(255,107,107,0.06); color: var(--red); }
+.diff-row.added   { background: rgba(62,207,142,0.06); color: var(--accent); }
+.diff-sig { width: 14px; flex-shrink: 0; text-align: center; font-weight: 600; }
+.diff-row.removed .diff-sig { color: var(--red); }
+.diff-row.added   .diff-sig { color: var(--accent); }
+.diff-row.neutral { color: var(--muted); padding-left: 2px; }
+.diff-row.neutral .diff-sig { color: transparent; }
+.diff-comment { color: #4a5568; font-size: 12px; }
+.diff-gap { height: 8px; }
 
-  /* skills */
-  .skill-row{ font-size:15px; margin-bottom:12px; max-width:60ch; }
-  .skill-row:last-child{ margin-bottom:0; }
-  .skill-row .label{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--muted);
-    display:block;
-    margin-bottom:4px;
-  }
+.case-result {
+  margin: 0 44px 40px;
+  padding: 20px 24px;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 6px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.case-result-icon { font-size: 18px; flex-shrink: 0; line-height: 1.4; }
+.case-result p {
+  font-size: 14.5px;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.6;
+}
+.case-result strong { color: var(--accent); }
 
-  /* experience */
-  .role-item{ margin-bottom:32px; }
-  .role-item:last-child{ margin-bottom:0; }
-  .role-item .when{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--muted);
-    margin-bottom:4px;
-  }
-  .role-item h3{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:17px;
-    margin:0 0 2px;
-  }
-  .role-item .co{ font-size:13.5px; color:var(--muted); margin-bottom:10px; }
-  .role-item ul{ margin:0; padding-left:18px; font-size:15px; }
-  .role-item li{ margin-bottom:6px; }
-  .role-item li:last-child{ margin-bottom:0; }
+.case-card-body { padding: 40px 44px; }
 
-  /* closing */
-  .closing{ margin-top:72px; max-width:58ch; }
-  .closing p{ font-size:16px; margin:0 0 16px; }
-  .closing .contact-line{ font-size:15px; }
-  .closing .contact-line .sep{ color:var(--line); margin:0 8px; }
+.also-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 32px 36px;
+  margin-top: 2px;
+}
+.also-card p {
+  font-size: 14.5px;
+  color: var(--ink2);
+  line-height: 1.75;
+}
+.also-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+.also-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink2);
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 5px 12px;
+}
+.also-chip::before { content: '↗'; color: var(--muted); font-size: 11px; }
 
-  footer{
-    margin-top:64px;
-    padding-top:24px;
-    border-top:1px solid var(--line);
-    font-size:12.5px;
-    color:var(--muted);
-  }
+/* ── skills ───────────────────────────────────────────── */
+.skills-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.skill-group {
+  background: var(--card);
+  padding: 36px 32px;
+}
+.skill-group-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: block;
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-tag {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink2);
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 5px 11px;
+  line-height: 1;
+  transition: border-color .15s, color .15s;
+}
+.skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+.skill-tag.highlight {
+  color: var(--accent);
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
 
-  @media (max-width:520px){
-    .wrap{ padding:56px 20px 72px; }
-    header h1{ font-size:29px; }
-    .thread{ padding-left:20px; }
-    .eyebrow::before{ left:-26.5px; }
-  }
+/* ── experience ────────────────────────────────────────── */
+.exp-timeline { position: relative; }
+.exp-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), var(--border) 90%, transparent);
+}
+.exp-item {
+  padding-left: 40px;
+  margin-bottom: 64px;
+  position: relative;
+}
+.exp-item:last-child { margin-bottom: 0; }
+.exp-item::before {
+  content: '';
+  position: absolute;
+  left: -4px; top: 8px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--bg), 0 0 12px rgba(62,207,142,0.4);
+}
+.exp-when {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  display: block;
+}
+.exp-role {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.exp-co {
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.exp-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.exp-list li {
+  font-size: 14.5px;
+  color: var(--ink2);
+  line-height: 1.6;
+  padding-left: 20px;
+  position: relative;
+}
+.exp-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 10px;
+  top: 4px;
+}
+
+/* ── closing / cta ─────────────────────────────────────── */
+.cta-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 40px;
+  border-top: 1px solid var(--border);
+}
+.cta-inner {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 64px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+}
+.cta-text h2 {
+  font-family: var(--display);
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.cta-text p {
+  font-size: 15px;
+  color: var(--ink2);
+  line-height: 1.7;
+  max-width: 50ch;
+}
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 200px;
+}
+
+/* ── footer ─────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-name {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+.footer-links a {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  transition: color .15s;
+}
+.footer-links a:hover { color: var(--accent); opacity: 1; }
+
+/* ── scroll reveal ─────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── responsive ─────────────────────────────────────────── */
+@media (max-width: 800px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero { padding: 90px 20px 60px; }
+  .section { padding: 72px 20px; }
+  .spec-grid { grid-template-columns: 1fr; }
+  .skills-layout { grid-template-columns: 1fr; }
+  .case-card-header,
+  .case-card-body { padding: 28px 24px 0; }
+  .diff-block { margin: 24px; }
+  .case-result { margin: 0 24px 28px; }
+  .cta-inner { grid-template-columns: 1fr; padding: 36px 28px; }
+  .cta-actions { flex-direction: row; flex-wrap: wrap; }
+  footer { flex-direction: column; gap: 16px; text-align: center; }
+  .exp-item { padding-left: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  * { animation-duration: 0.01ms !important; }
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="page">
 
-  <header>
-    <h1>Touqeer Khan Pathan</h1>
-    <div class="role">Laravel &amp; Shopify backend developer — Ahmedabad, India</div>
-    <div class="contact">
-      <a href="mailto:touqeerpathan75@gmail.com">touqeerpathan75@gmail.com</a><span class="sep">·</span><a href="tel:+917990847685">+91 79908 47685</a><span class="sep">·</span><a href="https://linkedin.com/in/touqeer-pathan" target="_blank" rel="noopener">linkedin</a><span class="sep">·</span><a href="https://github.com/touqeerpathan" target="_blank" rel="noopener">github</a>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">touqeerpathan.dev</div>
+  <ul class="nav-links">
+    <li><a href="#specialization">Focus</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#skills">Stack</a></li>
+    <li><a href="#experience">Experience</a></li>
+  </ul>
+  <a href="mailto:touqeerpathan75@gmail.com" class="nav-cta">Get in touch →</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Available for new projects</div>
+  <h1>
+    Touqeer Khan Pathan
+    <span class="line2">Backend Developer.</span>
+  </h1>
+  <div class="hero-subtitle">Laravel &amp; Shopify Specialist — Ahmedabad, India</div>
+  <p class="hero-lede">
+    <em>Most of what I build lives behind the parts of checkout a customer never thinks about.</em><br><br>
+    Over three years my work has drifted toward the newer, less-covered pieces — Checkout UI Extensions, Discount Functions, Cart Transform Functions, Payment Extensions — alongside the security side: OWASP-driven reviews, payment token handling, webhook verification. Most of what I know there came from fixing a real vulnerability, not a course.
+  </p>
+  <div class="hero-actions">
+    <a href="mailto:touqeerpathan75@gmail.com" class="btn-primary">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      touqeerpathan75@gmail.com
+    </a>
+    <a href="https://github.com/touqeerpathan" target="_blank" rel="noopener" class="btn-ghost">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="https://linkedin.com/in/touqeer-pathan" target="_blank" rel="noopener" class="btn-ghost">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+  </div>
+  <div class="hero-contacts">
+    <a href="tel:+917990847685" class="icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18a2 2 0 0 1 2-2.18H6.5a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.69a16 16 0 0 0 7.4 7.4l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      +91 79908 47685
+    </a>
+    <a href="https://github.com/touqeerpathan" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      touqeerpathan
+    </a>
+  </div>
+</div>
+
+<!-- SPECIALIZATION -->
+<div id="specialization" class="section">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <div>
+      <span class="section-eyebrow">Where I focus</span>
+      <h2 class="section-title">Specialization</h2>
     </div>
-  </header>
+  </div>
+  <div class="spec-grid reveal">
+    <div class="spec-card">
+      <div class="spec-card-icon">🔌</div>
+      <h3>Checkout Extensibility</h3>
+      <p>Building on Shopify's App Bridge CLI 3.0 to extend checkout and storefronts without touching the deprecated checkout.liquid path — which is where Shopify is pushing every merchant right now.</p>
+      <span class="spec-tag">App Bridge CLI 3.0</span>
+    </div>
+    <div class="spec-card">
+      <div class="spec-card-icon">⚙️</div>
+      <h3>Shopify Functions</h3>
+      <p>Discount and cart-transform logic, tiered pricing, bundles, automatic offers — written as server-side functions instead of theme-layer hacks that break with every Shopify update.</p>
+      <span class="spec-tag">Discount &amp; Cart Transform</span>
+    </div>
+    <div class="spec-card">
+      <div class="spec-card-icon">🔐</div>
+      <h3>Payment Security</h3>
+      <p>Custom Payment Extensions built with PCI-conscious flows, server-side token storage, and webhook signature verification. What I know came from closing a real vulnerability, not a course.</p>
+      <span class="spec-tag">OWASP · PCI-conscious</span>
+    </div>
+  </div>
+</div>
 
-  <div class="intro">
-    <div class="lede">Most of what I build lives behind the parts of checkout a customer never thinks about.</div>
-    <p>I'm a Laravel and Shopify backend developer based in Ahmedabad, and over the last three years my work has drifted toward the newer, less-covered pieces — Checkout UI Extensions, Discount Functions, Cart Transform Functions, Payment Extensions — along with the security side of it: OWASP-driven reviews, payment token handling, webhook verification. Most of what I know there came from fixing a real vulnerability, not a course.</p>
+<!-- CASE STUDIES -->
+<div id="work" class="section">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <div>
+      <span class="section-eyebrow">Two projects, in detail</span>
+      <h2 class="section-title">Case Studies</h2>
+    </div>
   </div>
 
-  <div class="thread">
+  <div class="case-grid">
 
-    <section id="specialization">
-      <div class="eyebrow">SPECIALIZATION</div>
-      <h2>Where I focus</h2>
-      <div class="spec-item"><strong>Checkout Extensibility</strong> — building on Shopify's App Bridge CLI 3.0 to extend checkout and storefronts without touching the deprecated checkout.liquid path, which is where Shopify is pushing every merchant right now.</div>
-      <div class="spec-item"><strong>Shopify Functions</strong> — discount and cart-transform logic, tiered pricing, bundles, automatic offers, written as server-side functions instead of theme-layer hacks.</div>
-      <div class="spec-item"><strong>Payment security</strong> — custom Payment Extensions built with PCI-conscious flows, server-side token storage, and webhook signature verification.</div>
-    </section>
-
-    <section id="work">
-      <div class="eyebrow">CASE STUDIES</div>
-      <h2>Two projects, in detail</h2>
-
-      <div class="case">
+    <!-- Case 1 -->
+    <div class="case-card reveal">
+      <div class="case-card-header">
+        <span class="case-num">Case 01 — Fintech</span>
         <h3>A finance platform's Payment Extension, end to end</h3>
-        <p>The brief was bigger than a bug fix: connect a finance-sector merchant's own payment platform to Shopify checkout through a fully custom Payment Extension authorization, transaction status, the works, not just a themed checkout button.</p>
+        <p>The brief was bigger than a bug fix: connect a finance-sector merchant's own payment platform to Shopify checkout through a fully custom Payment Extension — authorization, transaction status, the works, not just a themed checkout button.</p>
         <p>While building that integration, the existing approach was exposing API tokens in frontend requests, with payment data protection that didn't hold up to what a finance client needs.</p>
-        <div class="shift">
-          <span>Tokens sent straight from the browser</span>
-          <span class="arrow">→</span>
-          <span>Tokens verified and held server-side</span>
-        </div>
-        <p>Result: a working, PCI-conscious Payment Extension linking the merchant's finance platform to Shopify checkout, with the token-exposure gap closed as part of the build not bolted on after.</p>
       </div>
 
-      <div class="case">
+      <div class="diff-block">
+        <div class="diff-titlebar">
+          <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+          <span>payment-flow.diff — before → after</span>
+        </div>
+        <div class="diff-body">
+          <div class="diff-row neutral"><span class="diff-sig"> </span><span class="diff-comment">// Before: token passed directly from browser</span></div>
+          <div class="diff-row removed"><span class="diff-sig">−</span><span>fetch('/api/payment', { token: window.__API_TOKEN__ })</span></div>
+          <div class="diff-row removed"><span class="diff-sig">−</span><span>// ⚠ token visible in network tab &amp; frontend bundle</span></div>
+          <div class="diff-gap"></div>
+          <div class="diff-row neutral"><span class="diff-sig"> </span><span class="diff-comment">// After: token held server-side, verified per-request</span></div>
+          <div class="diff-row added"><span class="diff-sig">+</span><span>fetch('/api/payment/initiate', { sessionId: encryptedRef })</span></div>
+          <div class="diff-row added"><span class="diff-sig">+</span><span>// ✓ token verified &amp; stored server-side via Laravel Sanctum</span></div>
+          <div class="diff-row added"><span class="diff-sig">+</span><span>// ✓ webhook signature validated on every callback</span></div>
+        </div>
+      </div>
+
+      <div class="case-result">
+        <span class="case-result-icon">✓</span>
+        <p><strong>Result:</strong> A working, PCI-conscious Payment Extension linking the merchant's finance platform to Shopify checkout, with the token-exposure gap closed as part of the build — not bolted on after.</p>
+      </div>
+    </div>
+
+    <!-- Case 2 -->
+    <div class="case-card reveal">
+      <div class="case-card-body">
+        <span class="case-num">Case 02 — E-commerce</span>
         <h3>Loyalty points, built into checkout</h3>
         <p>A merchant wanted customers to earn and redeem loyalty points without leaving checkout. I designed and built a Shopify app around a third-party Stamp Loyalty API, so points issuance and redemption happen natively at checkout instead of through a separate portal.</p>
+        <p>The extension hooks into the checkout UI through a Checkout UI Extension, keeping the merchant's existing loyalty programme intact while surfacing it exactly where purchase decisions get made.</p>
       </div>
+    </div>
 
-      <p class="also">Also shipped: a waste management platform with full RBAC across collectors, customers, warehouses, and vehicle assignment; a grocery delivery platform with real-time order management and inventory tracking; and a social/dating platform with real-time chat and matchmaking.</p>
-    </section>
-
-    <section id="skills">
-      <div class="eyebrow">SKILLS</div>
-      <h2>Stack &amp; tooling</h2>
-      <div class="skill-row"><span class="label">Core</span>PHP, Laravel, JavaScript, Node.js, SQL</div>
-      <div class="skill-row"><span class="label">Shopify</span>Checkout UI Extensions, Discount Functions, Cart Transform Functions, Payment Extensions, Theme App Extensions, App Bridge CLI, Admin API/GraphQL, Webhooks</div>
-      <div class="skill-row"><span class="label">Security</span>OWASP Top 10, Laravel Sanctum, OAuth 2.0, JWT, RBAC, CSRF Protection, Bcrypt Hashing, Input Validation</div>
-      <div class="skill-row"><span class="label">Database &amp; API</span>MySQL, Eloquent ORM, Schema Design, REST API Design, GraphQL API, Postman</div>
-    </section>
-
-    <section id="experience">
-      <div class="eyebrow">EXPERIENCE</div>
-      <h2>Where I've worked</h2>
-
-      <div class="role-item">
-        <div class="when">Jul 2023 — current</div>
-        <h3>Web Developer</h3>
-        <div class="co">Shiv Technolabs Pvt. Ltd., Ahmedabad</div>
-        <ul>
-          <li>Built custom Shopify apps using App Bridge, Checkout UI Extensions, and Theme App Extensions for fintech and e-commerce clients.</li>
-          <li>Developed Discount Function and Cart Transform extensions for promotional logic and checkout-time cart modification.</li>
-          <li>Integrated Paystack, Flutterwave, and Checkout.com with webhook signature validation and real-time payment status handling.</li>
-          <li>Applied OWASP Top 10 practices across every project input validation, CSRF/XSS/SQLi prevention, Bcrypt hashing, RBAC.</li>
-          <li>Took part in adversarial code review sessions, evaluating implementations from an attacker's perspective.</li>
-        </ul>
+    <!-- Also shipped -->
+    <div class="also-card reveal">
+      <span class="section-eyebrow">Also shipped</span>
+      <p>Projects delivered outside of the headline cases — each a full-stack Laravel build with custom backend architecture.</p>
+      <div class="also-items">
+        <span class="also-chip">Waste management platform with RBAC</span>
+        <span class="also-chip">Grocery delivery with real-time inventory</span>
+        <span class="also-chip">Social & dating platform with live chat</span>
       </div>
-
-      <div class="role-item">
-        <div class="when">Jan 2023 — Jul 2023</div>
-        <h3>Trainee Web Developer</h3>
-        <div class="co">Shiv Technolabs Pvt. Ltd., Ahmedabad</div>
-        <ul>
-          <li>Developed Laravel backend modules with CRUD operations, Eloquent ORM relationships, and database schema design.</li>
-          <li>Built and tested RESTful API endpoints with authentication flows, input validation, and sanitization.</li>
-        </ul>
-      </div>
-    </section>
+    </div>
 
   </div>
+</div>
 
-  <div class="closing">
-    <p>If you're dealing with a Shopify Functions build, a Checkout Extensibility migration, or a Payment Extension that needs a security pass I'm around.</p>
-    <div class="contact-line">
-      <a href="mailto:touqeerpathan75@gmail.com">touqeerpathan75@gmail.com</a><span class="sep">·</span><a href="tel:+917990847685">+91 79908 47685</a>
+<!-- SKILLS -->
+<div id="skills" class="section">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <div>
+      <span class="section-eyebrow">What I work with</span>
+      <h2 class="section-title">Stack &amp; Tooling</h2>
     </div>
   </div>
+  <div class="skills-layout reveal">
+    <div class="skill-group">
+      <span class="skill-group-label">Core</span>
+      <div class="skill-tags">
+        <span class="skill-tag highlight">PHP</span>
+        <span class="skill-tag highlight">Laravel</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">SQL</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <span class="skill-group-label">Shopify</span>
+      <div class="skill-tags">
+        <span class="skill-tag highlight">Checkout UI Extensions</span>
+        <span class="skill-tag highlight">Discount Functions</span>
+        <span class="skill-tag">Cart Transform Functions</span>
+        <span class="skill-tag">Payment Extensions</span>
+        <span class="skill-tag">Theme App Extensions</span>
+        <span class="skill-tag">App Bridge CLI</span>
+        <span class="skill-tag">Admin API / GraphQL</span>
+        <span class="skill-tag">Webhooks</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <span class="skill-group-label">Security</span>
+      <div class="skill-tags">
+        <span class="skill-tag highlight">OWASP Top 10</span>
+        <span class="skill-tag">Laravel Sanctum</span>
+        <span class="skill-tag">OAuth 2.0</span>
+        <span class="skill-tag">JWT</span>
+        <span class="skill-tag">RBAC</span>
+        <span class="skill-tag">CSRF Protection</span>
+        <span class="skill-tag">Bcrypt Hashing</span>
+        <span class="skill-tag">Input Validation</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <span class="skill-group-label">Database &amp; API</span>
+      <div class="skill-tags">
+        <span class="skill-tag highlight">MySQL</span>
+        <span class="skill-tag">Eloquent ORM</span>
+        <span class="skill-tag">Schema Design</span>
+        <span class="skill-tag">REST API Design</span>
+        <span class="skill-tag">GraphQL API</span>
+        <span class="skill-tag">Postman</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <footer>Touqeer Khan Pathan — Ahmedabad, India</footer>
+<!-- EXPERIENCE -->
+<div id="experience" class="section">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <div>
+      <span class="section-eyebrow">Where I've worked</span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+  </div>
+  <div class="exp-timeline">
+
+    <div class="exp-item reveal">
+      <span class="exp-when">Jul 2023 — Present</span>
+      <div class="exp-role">Web Developer</div>
+      <div class="exp-co">Shiv Technolabs Pvt. Ltd. — Ahmedabad</div>
+      <ul class="exp-list">
+        <li>Built custom Shopify apps using App Bridge, Checkout UI Extensions, and Theme App Extensions for fintech and e-commerce clients.</li>
+        <li>Developed Discount Function and Cart Transform extensions for promotional logic and checkout-time cart modification.</li>
+        <li>Integrated Paystack, Flutterwave, and Checkout.com with webhook signature validation and real-time payment status handling.</li>
+        <li>Applied OWASP Top 10 practices across every project — input validation, CSRF/XSS/SQLi prevention, Bcrypt hashing, RBAC.</li>
+        <li>Took part in adversarial code review sessions, evaluating implementations from an attacker's perspective.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item reveal">
+      <span class="exp-when">Jan 2023 — Jul 2023</span>
+      <div class="exp-role">Trainee Web Developer</div>
+      <div class="exp-co">Shiv Technolabs Pvt. Ltd. — Ahmedabad</div>
+      <ul class="exp-list">
+        <li>Developed Laravel backend modules with CRUD operations, Eloquent ORM relationships, and database schema design.</li>
+        <li>Built and tested RESTful API endpoints with authentication flows, input validation, and sanitization.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- CLOSING CTA -->
+<div class="cta-section">
+  <div class="cta-inner reveal">
+    <div class="cta-text">
+      <h2>Let's work on something worth shipping.</h2>
+      <p>If you're dealing with a Shopify Functions build, a Checkout Extensibility migration, or a Payment Extension that needs a security pass — I'm around.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="mailto:touqeerpathan75@gmail.com" class="btn-primary">Send an email →</a>
+      <a href="tel:+917990847685" class="btn-ghost">+91 79908 47685</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Touqeer Khan Pathan — Ahmedabad, India</span>
+  <div class="footer-links">
+    <a href="mailto:touqeerpathan75@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/touqeer-pathan" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/touqeerpathan" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
 
 </div>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// Stagger children in grids
+document.querySelectorAll('.spec-grid, .skills-layout').forEach(grid => {
+  const children = grid.querySelectorAll('.spec-card, .skill-group');
+  children.forEach((child, i) => {
+    child.style.transitionDelay = `${i * 0.07}s`;
+  });
+});
+</script>
 </body>
 </html>
