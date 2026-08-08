@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Touqeer Pathan — Laravel & Shopify Backend Developer</title>
+<meta name="description" content="Laravel and Shopify backend developer based in Ahmedabad. Specialising in Shopify app development, Checkout UI Extensions, Shopify Functions, Payment Extensions, and Laravel API development.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -268,7 +269,7 @@ nav {
 /* ── specialization ───────────────────────────────────── */
 .spec-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2px;
   background: var(--border);
   border: 1px solid var(--border);
@@ -421,30 +422,40 @@ nav {
   padding: 32px 36px;
   margin-top: 2px;
 }
-.also-card p {
+.also-card > p {
   font-size: 14.5px;
   color: var(--ink2);
   line-height: 1.75;
+  margin-bottom: 0;
 }
-.also-items {
+.also-projects {
+  margin-top: 24px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
+  flex-direction: column;
+  gap: 0;
 }
-.also-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.also-project {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.also-project:last-child { border-bottom: none; padding-bottom: 0; }
+.also-project:first-child { padding-top: 0; }
+.also-project-name {
   font-family: var(--mono);
-  font-size: 12px;
-  color: var(--ink2);
-  background: var(--bg3);
-  border: 1px solid var(--border2);
-  border-radius: 4px;
-  padding: 5px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  padding-top: 2px;
 }
-.also-chip::before { content: '↗'; color: var(--muted); font-size: 11px; }
+.also-project-desc {
+  font-size: 14px;
+  color: var(--ink2);
+  line-height: 1.65;
+}
 
 /* ── skills ───────────────────────────────────────────── */
 .skills-layout {
@@ -459,6 +470,9 @@ nav {
 .skill-group {
   background: var(--card);
   padding: 36px 32px;
+}
+.skill-group.wide {
+  grid-column: 1 / -1;
 }
 .skill-group-label {
   font-family: var(--mono);
@@ -644,6 +658,7 @@ footer {
   .section { padding: 72px 20px; }
   .spec-grid { grid-template-columns: 1fr; }
   .skills-layout { grid-template-columns: 1fr; }
+  .skill-group.wide { grid-column: auto; }
   .case-card-header,
   .case-card-body { padding: 28px 24px 0; }
   .diff-block { margin: 24px; }
@@ -652,6 +667,7 @@ footer {
   .cta-actions { flex-direction: row; flex-wrap: wrap; }
   footer { flex-direction: column; gap: 16px; text-align: center; }
   .exp-item { padding-left: 28px; }
+  .also-project { grid-template-columns: 1fr; gap: 6px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -669,7 +685,7 @@ footer {
   <ul class="nav-links">
     <li><a href="#specialization">Focus</a></li>
     <li><a href="#work">Work</a></li>
-    <li><a href="#skills">Stack</a></li>
+    <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
   </ul>
   <a href="mailto:touqeerpathan75@gmail.com" class="nav-cta">Get in touch →</a>
@@ -680,12 +696,13 @@ footer {
   <div class="hero-tag">Available for new projects</div>
   <h1>
     Touqeer Pathan
-    <!-- <span class="line2">Backend Developer.</span> -->
   </h1>
-  <div class="hero-subtitle"> <span class="line2"> Laravel &amp; Shopify Specialist — Ahmedabad, India </span> </div>
+  <div class="hero-subtitle">
+    <span class="line2">Laravel &amp; Shopify Backend Developer — Ahmedabad, India</span>
+  </div>
   <p class="hero-lede">
-    <em>Most of what I build lives behind the parts of checkout a customer never thinks about.</em><br><br>
-    Over three years my work has drifted toward the newer, less-covered pieces — Checkout UI Extensions, Discount Functions, Cart Transform Functions, Payment Extensions — alongside the security side: OWASP-driven reviews, payment token handling, webhook verification. Most of what I know there came from fixing a real vulnerability, not a course.
+    I build Laravel backends and Shopify applications — REST APIs, custom Shopify apps and extensions, payment gateway integrations, and multi-role admin systems. Three years of production work across fintech, e-commerce, loyalty programs, and delivery platforms, with 8+ projects shipped for international clients.<br><br>
+    My Shopify focus is the current extension architecture: Checkout UI Extensions, Shopify Functions, and Payment Extensions. On the Laravel side, it's structured API design, authentication, RBAC, and getting backend systems production-ready. Security is part of how I build — I've found and closed real vulnerabilities, not just run through a checklist.
   </p>
   <div class="hero-actions">
     <a href="mailto:touqeerpathan75@gmail.com" class="btn-primary">
@@ -702,7 +719,7 @@ footer {
     </a>
   </div>
   <div class="hero-contacts">
-    <a href="tel:+917990847685" class="icon">
+    <a href="tel:+917990847685">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18a2 2 0 0 1 2-2.18H6.5a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.69a16 16 0 0 0 7.4 7.4l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       +91 79908 47685
     </a>
@@ -723,24 +740,35 @@ footer {
     </div>
   </div>
   <div class="spec-grid reveal">
+
+    <div class="spec-card">
+      <div class="spec-card-icon">⚡</div>
+      <h3>Laravel Backend Development</h3>
+      <p>Custom REST APIs, RBAC, authentication systems, and multi-role admin backends built on Laravel. I've built backends for delivery platforms, social apps, waste management systems, and e-commerce products — production systems with proper structure, not quick prototypes.</p>
+      <span class="spec-tag">PHP · Laravel · MySQL · REST API</span>
+    </div>
+
     <div class="spec-card">
       <div class="spec-card-icon">🔌</div>
-      <h3>Checkout Extensibility</h3>
-      <p>Building on Shopify's App Bridge CLI 3.0 to extend checkout and storefronts without touching the deprecated checkout.liquid path — which is where Shopify is pushing every merchant right now.</p>
-      <span class="spec-tag">App Bridge CLI 3.0</span>
+      <h3>Shopify App Development</h3>
+      <p>Full Shopify app builds using App Bridge CLI 3.0 — Checkout UI Extensions, Theme App Extensions, Admin UI integrations, and Webhooks. I work on Shopify's current extension model, not the deprecated checkout.liquid path that Shopify is actively migrating merchants away from.</p>
+      <span class="spec-tag">App Bridge CLI 3.0 · Admin API</span>
     </div>
+
     <div class="spec-card">
       <div class="spec-card-icon">⚙️</div>
       <h3>Shopify Functions</h3>
-      <p>Discount and cart-transform logic, tiered pricing, bundles, automatic offers — written as server-side functions instead of theme-layer hacks that break with every Shopify update.</p>
-      <span class="spec-tag">Discount &amp; Cart Transform</span>
+      <p>Custom Discount Functions and Cart Transform Functions — promotional rules, bundles, tiered pricing, automatic offers, and cart modification at checkout. Logic runs at the Shopify platform level, so it holds when the theme layer changes rather than breaking with every update.</p>
+      <span class="spec-tag">Discount Functions · Cart Transform</span>
     </div>
+
     <div class="spec-card">
       <div class="spec-card-icon">🔐</div>
-      <h3>Payment Security</h3>
-      <p>Custom Payment Extensions built with PCI-conscious flows, server-side token storage, and webhook signature verification. What I know came from closing a real vulnerability, not a course.</p>
-      <span class="spec-tag">OWASP · PCI-conscious</span>
+      <h3>Payment Integration &amp; Backend Security</h3>
+      <p>Gateway integrations with Paystack, Flutterwave, and Checkout.com — webhook signature verification, server-side token storage, real-time transaction handling. OWASP Top 10 applied across every project. I've found and closed real token exposure and payment data vulnerabilities in production builds.</p>
+      <span class="spec-tag">OWASP · Webhook Verification</span>
     </div>
+
   </div>
 </div>
 
@@ -749,20 +777,20 @@ footer {
   <div class="section-header reveal">
     <span class="section-num">02</span>
     <div>
-      <span class="section-eyebrow">Two projects, in detail</span>
-      <h2 class="section-title">Case Studies</h2>
+      <span class="section-eyebrow">Three projects, in detail</span>
+      <h2 class="section-title">Selected Work</h2>
     </div>
   </div>
 
   <div class="case-grid">
 
-    <!-- Case 1 -->
+    <!-- Case 1 — Payment Extension -->
     <div class="case-card reveal">
       <div class="case-card-header">
         <span class="case-num">Case 01 — Fintech</span>
-        <h3>A finance platform's Payment Extension, end to end</h3>
-        <p>The brief was bigger than a bug fix: connect a finance-sector merchant's own payment platform to Shopify checkout through a fully custom Payment Extension — authorization, transaction status, the works, not just a themed checkout button.</p>
-        <p>While building that integration, the existing approach was exposing API tokens in frontend requests, with payment data protection that didn't hold up to what a finance client needs.</p>
+        <h3>Custom Shopify Payment Extension for a finance-sector merchant</h3>
+        <p>The project was to connect the merchant's own payment platform to Shopify checkout through a fully custom Payment Extension — handling authorization, transaction status, and the complete payment flow, including 3DS. Not a redirect to an external page; a real integration that lives inside checkout.</p>
+        <p>While building the extension, I found API tokens being passed directly in frontend requests — exposed in the browser's network tab and bundled in JavaScript. For a finance-sector client, that needed fixing before the integration went live.</p>
       </div>
 
       <div class="diff-block">
@@ -771,7 +799,7 @@ footer {
           <span>payment-flow.diff — before → after</span>
         </div>
         <div class="diff-body">
-          <div class="diff-row neutral"><span class="diff-sig"> </span><span class="diff-comment">// Before: token passed directly from browser</span></div>
+          <div class="diff-row neutral"><span class="diff-sig"> </span><span class="diff-comment">// Before: token passed directly from the browser</span></div>
           <div class="diff-row removed"><span class="diff-sig">−</span><span>fetch('/api/payment', { token: window.__API_TOKEN__ })</span></div>
           <div class="diff-row removed"><span class="diff-sig">−</span><span>// ⚠ token visible in network tab &amp; frontend bundle</span></div>
           <div class="diff-gap"></div>
@@ -784,28 +812,47 @@ footer {
 
       <div class="case-result">
         <span class="case-result-icon">✓</span>
-        <p><strong>Result:</strong> A working, PCI-conscious Payment Extension linking the merchant's finance platform to Shopify checkout, with the token-exposure gap closed as part of the build — not bolted on after.</p>
+        <p><strong>Outcome:</strong> A working Payment Extension connecting the merchant's finance platform to Shopify checkout end-to-end. Token handling was moved server-side and webhook signatures are validated on every callback — fixed as part of the build, not added afterward.</p>
       </div>
     </div>
 
-    <!-- Case 2 -->
+    <!-- Case 2 — Loyalty App -->
     <div class="case-card reveal">
       <div class="case-card-body">
         <span class="case-num">Case 02 — E-commerce</span>
-        <h3>Loyalty points, built into checkout</h3>
-        <p>A merchant wanted customers to earn and redeem loyalty points without leaving checkout. I designed and built a Shopify app around a third-party Stamp Loyalty API, so points issuance and redemption happen natively at checkout instead of through a separate portal.</p>
-        <p>The extension hooks into the checkout UI through a Checkout UI Extension, keeping the merchant's existing loyalty programme intact while surfacing it exactly where purchase decisions get made.</p>
+        <h3>Loyalty points inside Shopify checkout</h3>
+        <p>A merchant wanted customers to earn and redeem loyalty points without leaving the checkout flow. Their existing program lived in a separate portal — which meant most customers never used it at the moment it would actually influence a purchase.</p>
+        <p>I built a Shopify app integrating a third-party Stamp Loyalty API. Point balance and redemption surface inside checkout through a Checkout UI Extension; the backend handles issuance and redemption against the API. The merchant's existing loyalty program stays intact — the extension just puts it where purchase decisions actually happen.</p>
+      </div>
+    </div>
+
+    <!-- Case 3 — Shopify Functions -->
+    <div class="case-card reveal">
+      <div class="case-card-body">
+        <span class="case-num">Case 03 — E-commerce</span>
+        <h3>Checkout logic with Shopify Functions</h3>
+        <p>For several e-commerce clients, promotional rules were either theme-layer hacks or managed outside Shopify entirely. Theme hacks need reworking with every Shopify update; external tools create sync issues with cart state.</p>
+        <p>I've built custom Discount Functions and Cart Transform Functions to handle bundles, tiered pricing, and automatic offers at the Shopify platform level. The logic is server-side and isn't tied to theme state, so it keeps working when the storefront changes around it.</p>
       </div>
     </div>
 
     <!-- Also shipped -->
     <div class="also-card reveal">
       <span class="section-eyebrow">Also shipped</span>
-      <p>Projects delivered outside of the headline cases — each a full-stack Laravel build with custom backend architecture.</p>
-      <div class="also-items">
-        <span class="also-chip">Waste management platform with RBAC</span>
-        <span class="also-chip">Grocery delivery with real-time inventory</span>
-        <span class="also-chip">Social & dating platform with live chat</span>
+      <p>Other production Laravel builds outside the headline cases.</p>
+      <div class="also-projects">
+        <div class="also-project">
+          <span class="also-project-name">Waste Management System</span>
+          <span class="also-project-desc">Full Laravel backend with RBAC across four user types — collectors, customers, warehouses, and admins. Modules for vehicle assignment and route management.</span>
+        </div>
+        <div class="also-project">
+          <span class="also-project-name">Grocery Delivery Platform</span>
+          <span class="also-project-desc">Multi-role backend with real-time order management, inventory tracking, and delivery agent assignment. Includes a complete admin panel.</span>
+        </div>
+        <div class="also-project">
+          <span class="also-project-name">Dating &amp; Social Platform</span>
+          <span class="also-project-desc">Laravel backend with real-time chat, matchmaking logic, and a full admin management system.</span>
+        </div>
       </div>
     </div>
 
@@ -818,10 +865,11 @@ footer {
     <span class="section-num">03</span>
     <div>
       <span class="section-eyebrow">What I work with</span>
-      <h2 class="section-title">Stack &amp; Tooling</h2>
+      <h2 class="section-title">Stack &amp; Skills</h2>
     </div>
   </div>
   <div class="skills-layout reveal">
+
     <div class="skill-group">
       <span class="skill-group-label">Core</span>
       <div class="skill-tags">
@@ -832,6 +880,7 @@ footer {
         <span class="skill-tag">SQL</span>
       </div>
     </div>
+
     <div class="skill-group">
       <span class="skill-group-label">Shopify</span>
       <div class="skill-tags">
@@ -843,10 +892,12 @@ footer {
         <span class="skill-tag">App Bridge CLI</span>
         <span class="skill-tag">Admin API / GraphQL</span>
         <span class="skill-tag">Webhooks</span>
+        <span class="skill-tag">Polaris</span>
       </div>
     </div>
+
     <div class="skill-group">
-      <span class="skill-group-label">Security</span>
+      <span class="skill-group-label">Security &amp; Auth</span>
       <div class="skill-tags">
         <span class="skill-tag highlight">OWASP Top 10</span>
         <span class="skill-tag">Laravel Sanctum</span>
@@ -854,21 +905,39 @@ footer {
         <span class="skill-tag">JWT</span>
         <span class="skill-tag">RBAC</span>
         <span class="skill-tag">CSRF Protection</span>
+        <span class="skill-tag">SQL Injection Prevention</span>
+        <span class="skill-tag">XSS Prevention</span>
         <span class="skill-tag">Bcrypt Hashing</span>
         <span class="skill-tag">Input Validation</span>
       </div>
     </div>
+
     <div class="skill-group">
-      <span class="skill-group-label">Database &amp; API</span>
+      <span class="skill-group-label">Database &amp; APIs</span>
       <div class="skill-tags">
         <span class="skill-tag highlight">MySQL</span>
         <span class="skill-tag">Eloquent ORM</span>
-        <span class="skill-tag">Schema Design</span>
+        <span class="skill-tag">Database Schema Design</span>
         <span class="skill-tag">REST API Design</span>
         <span class="skill-tag">GraphQL API</span>
         <span class="skill-tag">Postman</span>
       </div>
     </div>
+
+    <div class="skill-group wide">
+      <span class="skill-group-label">Infrastructure &amp; Tools</span>
+      <div class="skill-tags">
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Bitbucket</span>
+        <span class="skill-tag">Linux (Ubuntu)</span>
+        <span class="skill-tag">Nginx</span>
+        <span class="skill-tag">Apache2</span>
+        <span class="skill-tag">Blade Templates</span>
+        <span class="skill-tag">HTML5 / CSS3</span>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -888,11 +957,14 @@ footer {
       <div class="exp-role">Web Developer</div>
       <div class="exp-co">Shiv Technolabs Pvt. Ltd. — Ahmedabad</div>
       <ul class="exp-list">
-        <li>Built custom Shopify apps using App Bridge, Checkout UI Extensions, and Theme App Extensions for fintech and e-commerce clients.</li>
-        <li>Developed Discount Function and Cart Transform extensions for promotional logic and checkout-time cart modification.</li>
-        <li>Integrated Paystack, Flutterwave, and Checkout.com with webhook signature validation and real-time payment status handling.</li>
-        <li>Applied OWASP Top 10 practices across every project — input validation, CSRF/XSS/SQLi prevention, Bcrypt hashing, RBAC.</li>
-        <li>Took part in adversarial code review sessions, evaluating implementations from an attacker's perspective.</li>
+        <li>Built custom Shopify applications for fintech and e-commerce clients using App Bridge CLI 3.0, Checkout UI Extensions, Theme App Extensions, and Admin UI integrations.</li>
+        <li>Developed Discount Function and Cart Transform Function extensions for custom promotional logic, bundle pricing, tiered discounts, and cart modification at checkout.</li>
+        <li>Built custom Shopify Payment Extensions; integrated Paystack, Flutterwave, and Checkout.com with webhook signature validation and real-time transaction status handling.</li>
+        <li>Identified and closed API token exposure and payment data vulnerabilities on a finance-sector project — moved token handling server-side and restructured the webhook verification flow.</li>
+        <li>Built a Shopify loyalty app integrating a third-party Stamp Loyalty API, enabling point issuance and redemption natively inside the Shopify checkout experience.</li>
+        <li>Applied OWASP Top 10 practices across all projects: input validation, CSRF and XSS prevention, SQL injection mitigation, Bcrypt hashing, and granular RBAC permission management.</li>
+        <li>Participated in adversarial code review sessions, evaluating implementations from an attacker's perspective to identify exploitable assumptions and edge cases.</li>
+        <li>Delivered full-stack Laravel backends for waste management, grocery delivery, and social platforms — multi-role RBAC, real-time features, and complete admin systems.</li>
       </ul>
     </div>
 
@@ -901,8 +973,9 @@ footer {
       <div class="exp-role">Trainee Web Developer</div>
       <div class="exp-co">Shiv Technolabs Pvt. Ltd. — Ahmedabad</div>
       <ul class="exp-list">
-        <li>Developed Laravel backend modules with CRUD operations, Eloquent ORM relationships, and database schema design.</li>
-        <li>Built and tested RESTful API endpoints with authentication flows, input validation, and sanitization.</li>
+        <li>Built Laravel backend modules with CRUD operations, Eloquent ORM relationships, and database schema design under senior supervision.</li>
+        <li>Developed and tested RESTful API endpoints with authentication flows, input validation, and sanitization.</li>
+        <li>Gained hands-on production experience with MVC architecture, Laravel migrations, and secure coding practices.</li>
       </ul>
     </div>
 
@@ -913,8 +986,8 @@ footer {
 <div class="cta-section">
   <div class="cta-inner reveal">
     <div class="cta-text">
-      <h2>Let's work on something worth shipping.</h2>
-      <p>If you're dealing with a Shopify Functions build, a Checkout Extensibility migration, or a Payment Extension that needs a security pass — I'm around.</p>
+      <h2>Have a Shopify or Laravel backend that needs building?</h2>
+      <p>Available for Shopify app development, Checkout UI Extensions, Shopify Functions, Payment Extensions, Laravel API development, payment integrations, and backend security reviews. Drop me a line.</p>
     </div>
     <div class="cta-actions">
       <a href="mailto:touqeerpathan75@gmail.com" class="btn-primary">Send an email →</a>
