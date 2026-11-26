@@ -1,1032 +1,1955 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Touqeer Pathan — Laravel & Shopify Backend Developer</title>
-<meta name="description" content="Laravel and Shopify backend developer based in Ahmedabad. Specialising in Shopify app development, Checkout UI Extensions, Shopify Functions, Payment Extensions, and Laravel API development.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-/* ── reset & tokens ─────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg:        #0f1117;
-  --bg2:       #161920;
-  --bg3:       #1e2128;
-  --card:      #181c23;
-  --border:    #272b36;
-  --border2:   #2f3440;
-  --ink:       #e8e6e0;
-  --ink2:      #b0b4c1;
-  --muted:     #6b7180;
-  --accent:    #3ecf8e;
-  --accent2:   #2ab57a;
-  --accent-bg: rgba(62,207,142,0.08);
-  --accent-border: rgba(62,207,142,0.22);
-  --red:       #ff6b6b;
-  --yellow:    #f5c842;
-  --mono:      'JetBrains Mono', monospace;
-  --sans:      'Inter', sans-serif;
-  --display:   'Syne', sans-serif;
-}
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-a { color: var(--accent); text-decoration: none; transition: opacity .15s; }
-a:hover { opacity: .8; }
-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Touqeer Khan Pathan — Laravel &amp; Shopify Backend Developer</title>
+  <meta name="description" content="Full-stack &amp; backend developer with 3+ years of experience in PHP, Laravel, React, Node.js, MySQL/PostgreSQL, AWS, Shopify Checkout UI Extensions, Shopify Functions, and Payment Extensions." />
+  <meta property="og:title" content="Touqeer Khan Pathan — Laravel &amp; Shopify Backend Developer" />
+  <meta property="og:description" content="Building upgrade-safe Shopify Checkout Extensibility apps, Shopify Functions, Payment Extensions, and OWASP-hardened Laravel backends." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://touqeerpathan.github.io/" />
+  <meta property="og:image" content="https://touqeerpathan.github.io/profile.jpg" />
+  <meta name="theme-color" content="#090b10" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23090b10'/%3E%3Crect x='2' y='2' width='60' height='60' rx='12' fill='none' stroke='%2310b981' stroke-width='2.5'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%2310b981' font-family='monospace' font-weight='700' font-size='26'%3ETP%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design Tokens ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── noise overlay ──────────────────────────────────── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.025;
-  pointer-events: none;
-  z-index: 0;
-}
+    :root {
+      --bg:            #080a0f;
+      --bg-elevated:   #0e121b;
+      --card:          rgba(16, 20, 29, 0.82);
+      --card-solid:    #10141d;
+      --card-hover:    #151b27;
+      --border:        rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.15);
+      --ink:           #f1f5f9;
+      --ink-2:         #94a3b8;
+      --muted:         #64748b;
+      --accent:        #10b981;
+      --accent-bright: #34d399;
+      --accent-dim:    rgba(16, 185, 129, 0.10);
+      --accent-border: rgba(16, 185, 129, 0.28);
+      --indigo:        #818cf8;
+      --indigo-dim:    rgba(129, 140, 248, 0.10);
+      --amber:         #f59e0b;
+      --red:           #f87171;
+      --red-dim:       rgba(248, 113, 113, 0.08);
+      --code-bg:       #06080d;
+      --nav-bg:        rgba(8, 10, 15, 0.78);
+      --grid-line:     rgba(255, 255, 255, 0.025);
+      --shadow-card:   0 20px 40px -24px rgba(0, 0, 0, 0.75);
+      --display:       'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --sans:          'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono:          'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --radius:        16px;
+      --radius-sm:     10px;
+    }
 
-/* ── layout ─────────────────────────────────────────── */
-.page { position: relative; z-index: 1; }
+    html[data-theme="light"] {
+      --bg:            #f8fafc;
+      --bg-elevated:   #ffffff;
+      --card:          rgba(255, 255, 255, 0.92);
+      --card-solid:    #ffffff;
+      --card-hover:    #f1f5f9;
+      --border:        rgba(15, 23, 42, 0.09);
+      --border-strong: rgba(15, 23, 42, 0.18);
+      --ink:           #0f172a;
+      --ink-2:         #475569;
+      --muted:         #64748b;
+      --accent:        #059669;
+      --accent-bright: #047857;
+      --accent-dim:    rgba(5, 150, 105, 0.09);
+      --accent-border: rgba(5, 150, 105, 0.28);
+      --indigo:        #4f46e5;
+      --indigo-dim:    rgba(79, 70, 229, 0.08);
+      --amber:         #d97706;
+      --red:           #dc2626;
+      --red-dim:       rgba(220, 38, 38, 0.07);
+      --code-bg:       #0f172a;
+      --nav-bg:        rgba(248, 250, 252, 0.85);
+      --grid-line:     rgba(15, 23, 42, 0.035);
+      --shadow-card:   0 14px 32px -18px rgba(15, 23, 42, 0.12);
+    }
 
-/* ── nav ────────────────────────────────────────────── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  height: 60px;
-  background: rgba(15,17,23,0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-logo {
-  font-family: var(--mono);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--accent);
-  letter-spacing: 0.03em;
-}
-.nav-links {
-  display: flex;
-  gap: 32px;
-  list-style: none;
-}
-.nav-links a {
-  font-size: 12.5px;
-  font-weight: 500;
-  color: var(--ink2);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-family: var(--mono);
-  transition: color .15s;
-}
-.nav-links a:hover { color: var(--accent); opacity: 1; }
-.nav-cta {
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent) !important;
-  border: 1px solid var(--accent-border);
-  padding: 7px 16px;
-  border-radius: 4px;
-  background: var(--accent-bg);
-  transition: background .15s, border-color .15s !important;
-}
-.nav-cta:hover { background: rgba(62,207,142,0.14) !important; border-color: var(--accent) !important; opacity: 1 !important; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 88px;
+    }
 
-/* ── hero ────────────────────────────────────────────── */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 100px 40px 80px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--accent);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 32px;
-}
-.hero-tag::before {
-  content: '';
-  display: block;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
-  50% { opacity: .5; box-shadow: 0 0 2px var(--accent); }
-}
-.hero h1 {
-  font-family: var(--display);
-  font-size: clamp(44px, 7vw, 88px);
-  font-weight: 800;
-  line-height: 1.0;
-  letter-spacing: -0.03em;
-  margin-bottom: 12px;
-}
-.hero h1 .line2 {
-  color: var(--accent);
-  display: block;
-}
-.hero-subtitle {
-  font-family: var(--display);
-  font-size: clamp(18px, 2.8vw, 28px);
-  font-weight: 500;
-  color: var(--ink2);
-  margin-bottom: 36px;
-  line-height: 1.3;
-  max-width: 680px;
-}
-.hero-lede {
-  font-size: 16px;
-  color: var(--ink2);
-  max-width: 560px;
-  line-height: 1.8;
-  margin-bottom: 52px;
-}
-.hero-lede em {
-  font-style: italic;
-  color: var(--ink);
-}
-.hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--accent);
-  color: #0a1a12;
-  font-family: var(--mono);
-  font-size: 13px;
-  font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 5px;
-  transition: transform .15s, box-shadow .15s;
-  letter-spacing: 0.03em;
-}
-.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(62,207,142,0.3); opacity: 1; }
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--border2);
-  color: var(--ink2);
-  font-family: var(--mono);
-  font-size: 13px;
-  font-weight: 500;
-  padding: 12px 24px;
-  border-radius: 5px;
-  transition: border-color .15s, color .15s;
-}
-.btn-ghost:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
-.hero-contacts {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  margin-top: 52px;
-  padding-top: 32px;
-  border-top: 1px solid var(--border);
-  flex-wrap: wrap;
-}
-.hero-contacts a {
-  font-family: var(--mono);
-  font-size: 12.5px;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  transition: color .15s;
-}
-.hero-contacts a:hover { color: var(--accent); opacity: 1; }
-.hero-contacts .icon { font-size: 14px; }
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15.5px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
 
-/* ── section scaffold ─────────────────────────────────── */
-.section {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 100px 40px;
-  border-top: 1px solid var(--border);
-}
-.section-header {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 60px;
-}
-.section-num {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--accent);
-  letter-spacing: 0.08em;
-}
-.section-title {
-  font-family: var(--display);
-  font-size: clamp(28px, 4vw, 42px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-}
-.section-eyebrow {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
-  display: block;
-}
+    /* Subtle engineering grid + radial ambient glow */
+    .bg-mesh {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(800px circle at 18% -5%, rgba(16, 185, 129, 0.09), transparent 55%),
+        radial-gradient(650px circle at 85% 15%, rgba(129, 140, 248, 0.06), transparent 50%),
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+      background-size: auto, auto, 56px 56px, 56px 56px;
+    }
 
-/* ── specialization ───────────────────────────────────── */
-.spec-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.spec-card {
-  background: var(--card);
-  padding: 36px 32px;
-  transition: background .15s;
-}
-.spec-card:hover { background: var(--bg3); }
-.spec-card-icon {
-  font-size: 28px;
-  margin-bottom: 20px;
-  line-height: 1;
-}
-.spec-card h3 {
-  font-family: var(--display);
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: var(--ink);
-}
-.spec-card p {
-  font-size: 14.5px;
-  color: var(--ink2);
-  line-height: 1.7;
-}
-.spec-tag {
-  display: inline-block;
-  margin-top: 16px;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 1px solid var(--accent-border);
-  border-radius: 3px;
-  padding: 3px 8px;
-  letter-spacing: 0.05em;
-}
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
 
-/* ── case studies ─────────────────────────────────────── */
-.case-grid { display: flex; flex-direction: column; gap: 2px; }
-.case-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.case-card-header {
-  padding: 40px 44px 0;
-}
-.case-num {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  display: block;
-}
-.case-card h3 {
-  font-family: var(--display);
-  font-size: clamp(20px, 3vw, 30px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-bottom: 20px;
-}
-.case-card p {
-  font-size: 15px;
-  color: var(--ink2);
-  line-height: 1.75;
-  max-width: 62ch;
-  margin-bottom: 16px;
-}
-.case-card p:last-of-type { margin-bottom: 0; }
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-/* terminal diff block */
-.diff-block {
-  margin: 32px 44px;
-  border: 1px solid var(--border2);
-  border-radius: 8px;
-  overflow: hidden;
-  font-family: var(--mono);
-  font-size: 13px;
-}
-.diff-titlebar {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 10px 16px;
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-}
-.dot { width: 10px; height: 10px; border-radius: 50%; }
-.dot-r { background: #ff5f57; }
-.dot-y { background: #febc2e; }
-.dot-g { background: #28c840; }
-.diff-titlebar span {
-  margin-left: 4px;
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-}
-.diff-body { padding: 20px; background: #0d1117; }
-.diff-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 5px 0;
-  border-radius: 4px;
-}
-.diff-row.removed { background: rgba(255,107,107,0.06); color: var(--red); }
-.diff-row.added   { background: rgba(62,207,142,0.06); color: var(--accent); }
-.diff-sig { width: 14px; flex-shrink: 0; text-align: center; font-weight: 600; }
-.diff-row.removed .diff-sig { color: var(--red); }
-.diff-row.added   .diff-sig { color: var(--accent); }
-.diff-row.neutral { color: var(--muted); padding-left: 2px; }
-.diff-row.neutral .diff-sig { color: transparent; }
-.diff-comment { color: #4a5568; font-size: 12px; }
-.diff-gap { height: 8px; }
+    /* ── Header / Floating Nav ─────────────────────────────────── */
+    .nav-wrap {
+      position: sticky;
+      top: 14px;
+      z-index: 100;
+      padding: 0 24px;
+      max-width: 1160px;
+      margin: 14px auto 0;
+    }
 
-.case-result {
-  margin: 0 44px 40px;
-  padding: 20px 24px;
-  background: var(--accent-bg);
-  border: 1px solid var(--accent-border);
-  border-radius: 6px;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-.case-result-icon { font-size: 18px; flex-shrink: 0; line-height: 1.4; }
-.case-result p {
-  font-size: 14.5px;
-  color: var(--ink);
-  margin: 0;
-  line-height: 1.6;
-}
-.case-result strong { color: var(--accent); }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 18px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow-card);
+    }
 
-.case-card-body { padding: 40px 44px; }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
 
-.also-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 32px 36px;
-  margin-top: 2px;
-}
-.also-card > p {
-  font-size: 14.5px;
-  color: var(--ink2);
-  line-height: 1.75;
-  margin-bottom: 0;
-}
-.also-projects {
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-.also-project {
-  padding: 18px 0;
-  border-bottom: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 20px;
-  align-items: start;
-}
-.also-project:last-child { border-bottom: none; padding-bottom: 0; }
-.also-project:first-child { padding-top: 0; }
-.also-project-name {
-  font-family: var(--mono);
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--ink);
-  padding-top: 2px;
-}
-.also-project-desc {
-  font-size: 14px;
-  color: var(--ink2);
-  line-height: 1.65;
-}
+    .brand-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
 
-/* ── skills ───────────────────────────────────────────── */
-.skills-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.skill-group {
-  background: var(--card);
-  padding: 36px 32px;
-}
-.skill-group.wide {
-  grid-column: 1 / -1;
-}
-.skill-group-label {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 16px;
-  display: block;
-}
-.skill-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.skill-tag {
-  font-family: var(--mono);
-  font-size: 12.5px;
-  color: var(--ink2);
-  background: var(--bg2);
-  border: 1px solid var(--border2);
-  border-radius: 4px;
-  padding: 5px 11px;
-  line-height: 1;
-  transition: border-color .15s, color .15s;
-}
-.skill-tag:hover { border-color: var(--accent); color: var(--accent); }
-.skill-tag.highlight {
-  color: var(--accent);
-  background: var(--accent-bg);
-  border-color: var(--accent-border);
-}
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
 
-/* ── experience ────────────────────────────────────────── */
-.exp-timeline { position: relative; }
-.exp-timeline::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 8px; bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, var(--accent), var(--border) 90%, transparent);
-}
-.exp-item {
-  padding-left: 40px;
-  margin-bottom: 64px;
-  position: relative;
-}
-.exp-item:last-child { margin-bottom: 0; }
-.exp-item::before {
-  content: '';
-  position: absolute;
-  left: -4px; top: 8px;
-  width: 9px; height: 9px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 3px var(--bg), 0 0 12px rgba(62,207,142,0.4);
-}
-.exp-when {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-  margin-bottom: 10px;
-  display: block;
-}
-.exp-role {
-  font-family: var(--display);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-  margin-bottom: 4px;
-}
-.exp-co {
-  font-size: 14px;
-  color: var(--accent);
-  margin-bottom: 20px;
-  font-weight: 500;
-}
-.exp-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.exp-list li {
-  font-size: 14.5px;
-  color: var(--ink2);
-  line-height: 1.6;
-  padding-left: 20px;
-  position: relative;
-}
-.exp-list li::before {
-  content: '▸';
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-size: 10px;
-  top: 4px;
-}
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
 
-/* ── closing / cta ─────────────────────────────────────── */
-.cta-section {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 100px 40px;
-  border-top: 1px solid var(--border);
-}
-.cta-inner {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 64px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 40px;
-  align-items: center;
-}
-.cta-text h2 {
-  font-family: var(--display);
-  font-size: clamp(26px, 4vw, 40px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-.cta-text p {
-  font-size: 15px;
-  color: var(--ink2);
-  line-height: 1.7;
-  max-width: 50ch;
-}
-.cta-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-width: 200px;
-}
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-2);
+      padding: 6px 11px;
+      border-radius: 8px;
+      transition: color 0.15s, background-color 0.15s;
+    }
 
-/* ── footer ─────────────────────────────────────────────── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 32px 40px;
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.footer-name {
-  font-family: var(--mono);
-  font-size: 12.5px;
-  color: var(--muted);
-}
-.footer-links {
-  display: flex;
-  gap: 20px;
-}
-.footer-links a {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--muted);
-  transition: color .15s;
-}
-.footer-links a:hover { color: var(--accent); opacity: 1; }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--ink);
+      background: var(--accent-dim);
+    }
 
-/* ── scroll reveal ─────────────────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-/* ── responsive ─────────────────────────────────────────── */
-@media (max-width: 800px) {
-  nav { padding: 0 20px; }
-  .nav-links { display: none; }
-  .hero { padding: 90px 20px 60px; }
-  .section { padding: 72px 20px; }
-  .spec-grid { grid-template-columns: 1fr; }
-  .skills-layout { grid-template-columns: 1fr; }
-  .skill-group.wide { grid-column: auto; }
-  .case-card-header,
-  .case-card-body { padding: 28px 24px 0; }
-  .diff-block { margin: 24px; }
-  .case-result { margin: 0 24px 28px; }
-  .cta-inner { grid-template-columns: 1fr; padding: 36px 28px; }
-  .cta-actions { flex-direction: row; flex-wrap: wrap; }
-  footer { flex-direction: column; gap: 16px; text-align: center; }
-  .exp-item { padding-left: 28px; }
-  .also-project { grid-template-columns: 1fr; gap: 6px; }
-}
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card-solid);
+      color: var(--ink-2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, transform 0.15s;
+    }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  * { animation-duration: 0.01ms !important; }
-}
-</style>
+    .icon-btn:hover {
+      border-color: var(--accent-border);
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #052e16;
+      transition: transform 0.15s, filter 0.15s;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+    }
+
+    /* ── Bento Card Base + Spotlight ───────────────────────────── */
+    .bento-card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .bento-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        420px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(16, 185, 129, 0.08),
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .bento-card:hover::before { opacity: 1; }
+    .bento-card:hover { border-color: var(--border-strong); }
+
+    /* ── Hero Bento Section ────────────────────────────────────── */
+    .hero-bento {
+      display: grid;
+      grid-template-columns: 1.55fr 0.95fr;
+      gap: 16px;
+      margin-top: 28px;
+      margin-bottom: 16px;
+    }
+
+    .hero-main {
+      padding: 38px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--accent-bright);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    html[data-theme="light"] .status-pill { color: var(--accent); }
+
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(34px, 4.6vw, 54px);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-top: 16px;
+    }
+
+    .hero-role {
+      font-family: var(--display);
+      font-size: clamp(18px, 2.2vw, 23px);
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 10px;
+      line-height: 1.3;
+    }
+
+    .hero-summary {
+      color: var(--ink-2);
+      font-size: 15.5px;
+      line-height: 1.72;
+      max-width: 62ch;
+      margin-top: 16px;
+    }
+
+    .hero-summary strong { color: var(--ink); font-weight: 600; }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 11px 18px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #052e16;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px -10px rgba(16, 185, 129, 0.65);
+    }
+
+    .btn-secondary {
+      background: var(--bg-elevated);
+      color: var(--ink);
+      border-color: var(--border-strong);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-border);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* Right Hero Column */
+    .hero-side {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 16px;
+    }
+
+    .profile-card {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .profile-photo-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3.5;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 18%;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+
+    .profile-card:hover .profile-photo {
+      transform: scale(1.03);
+    }
+
+    .profile-badge-overlay {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 9px;
+      background: rgba(8, 10, 15, 0.80);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .profile-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 2px 4px;
+    }
+
+    .profile-meta-left strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .profile-meta-left span {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    .profile-quick-links {
+      display: flex;
+      gap: 6px;
+    }
+
+    /* Telemetry Strip Card */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding: 16px;
+    }
+
+    .metric-box {
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+
+    .metric-val {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .metric-val span { color: var(--accent); }
+
+    .metric-lbl {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ── Interactive Terminal Bento ────────────────────────────── */
+    .terminal-bento {
+      margin-bottom: 64px;
+      background: var(--code-bg);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .terminal-dots {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: #94a3b8;
+    }
+
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-r { background: #ef4444; }
+    .dot-y { background: #f59e0b; }
+    .dot-g { background: #10b981; }
+
+    .cmd-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .cmd-chip {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+    }
+
+    .cmd-chip:hover, .cmd-chip.active {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: rgba(16, 185, 129, 0.12);
+      color: #34d399;
+    }
+
+    .terminal-body {
+      padding: 18px 20px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+
+    .term-prompt {
+      color: #34d399;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .term-input {
+      background: transparent;
+      border: none;
+      color: #f8fafc;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      width: 100%;
+      outline: none;
+    }
+
+    .term-output {
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      min-height: 82px;
+    }
+
+    .term-key { color: #34d399; }
+    .term-str { color: #a5b4fc; }
+    .term-com { color: #64748b; }
+
+    /* ── Sections ──────────────────────────────────────────────── */
+    section {
+      padding: 48px 0;
+    }
+
+    .sec-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .sec-eyebrow {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .sec-title {
+      font-family: var(--display);
+      font-size: clamp(26px, 3.3vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+    }
+
+    .sec-sub {
+      color: var(--ink-2);
+      font-size: 14.5px;
+      max-width: 52ch;
+    }
+
+    /* ── Focus / Demand Bento Grid ─────────────────────────────── */
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .focus-card {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .focus-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .focus-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .focus-badge {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--ink-2);
+      background: var(--bg-elevated);
+    }
+
+    .focus-card h3 {
+      font-family: var(--display);
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .focus-card p {
+      font-size: 14.5px;
+      color: var(--ink-2);
+      line-height: 1.65;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 6px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      color: var(--ink-2);
+    }
+
+    .pill.accent {
+      color: var(--accent);
+      background: var(--accent-dim);
+      border-color: var(--accent-border);
+    }
+
+    /* ── Filter Bar & Case Studies ─────────────────────────────── */
+    .filter-tabs {
+      display: inline-flex;
+      gap: 6px;
+      padding: 4px;
+      border-radius: 10px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+
+    .filter-tab {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 7px;
+      border: none;
+      background: transparent;
+      color: var(--ink-2);
+      cursor: pointer;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .filter-tab.active {
+      background: var(--accent);
+      color: #052e16;
+      font-weight: 600;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .project-card {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .project-card.featured {
+      grid-column: 1 / -1;
+      padding: 32px;
+    }
+
+    .project-card.hidden { display: none; }
+
+    .proj-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .proj-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .proj-title {
+      font-family: var(--display);
+      font-size: clamp(20px, 2.5vw, 26px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    .proj-desc {
+      color: var(--ink-2);
+      font-size: 14.5px;
+      line-height: 1.7;
+    }
+
+    .rfc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .rfc-box {
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+    }
+
+    .rfc-label {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .rfc-box p {
+      font-size: 13.5px;
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    /* Interactive Case 01 Switcher (Security Diff / Flow Explorer) */
+    .case-inspector {
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--code-bg);
+    }
+
+    .inspector-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .inspector-tabs {
+      display: flex;
+      gap: 6px;
+    }
+
+    .insp-btn {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      padding: 5px 11px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: transparent;
+      color: #94a3b8;
+      cursor: pointer;
+    }
+
+    .insp-btn.active {
+      background: rgba(16, 185, 129, 0.14);
+      border-color: rgba(16, 185, 129, 0.45);
+      color: #34d399;
+    }
+
+    .inspector-panel { padding: 18px; }
+    .inspector-panel.hidden { display: none; }
+
+    .diff-line {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+    }
+
+    .diff-line.rem { background: rgba(248, 113, 113, 0.10); color: #fca5a5; }
+    .diff-line.add { background: rgba(16, 185, 129, 0.10); color: #6ee7b7; }
+    .diff-line.com { color: #64748b; }
+
+    /* Interactive Architecture Nodes */
+    .arch-nodes {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .arch-node {
+      text-align: left;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: border-color 0.15s, background-color 0.15s;
+    }
+
+    .arch-node.active, .arch-node:hover {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.12);
+    }
+
+    .arch-step {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: #34d399;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .arch-name {
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 700;
+      display: block;
+    }
+
+    .arch-detail {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+
+    /* ── Skills Bento Matrix ───────────────────────────────────── */
+    .skills-bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .skill-box {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .skill-box-title {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    /* ── Experience & Education Bento ──────────────────────────── */
+    .career-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 0.9fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .timeline-card { padding: 28px; }
+
+    .timeline {
+      position: relative;
+      padding-left: 24px;
+      border-left: 1px solid var(--border-strong);
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .tl-item { position: relative; }
+
+    .tl-item::before {
+      content: "";
+      position: absolute;
+      left: -29px;
+      top: 5px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--bg);
+    }
+
+    .tl-date {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .tl-role {
+      font-family: var(--display);
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .tl-company {
+      font-size: 13.5px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .tl-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tl-list li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 14px;
+      color: var(--ink-2);
+    }
+
+    .tl-list li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 11px;
+    }
+
+    .side-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .edu-card, .services-card { padding: 24px; }
+
+    .edu-degree {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+
+    .edu-school {
+      font-size: 14px;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .edu-meta {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .service-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+      color: var(--ink-2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .service-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .service-item strong { color: var(--ink); font-weight: 600; }
+
+    /* ── CTA & Footer ──────────────────────────────────────────── */
+    .cta-card {
+      padding: 42px;
+      display: grid;
+      grid-template-columns: 1.4fr auto;
+      gap: 28px;
+      align-items: center;
+      background:
+        radial-gradient(500px circle at 90% 10%, rgba(16, 185, 129, 0.12), transparent 60%),
+        var(--card);
+    }
+
+    .cta-card h2 {
+      font-family: var(--display);
+      font-size: clamp(24px, 3.2vw, 34px);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .cta-card p {
+      color: var(--ink-2);
+      max-width: 54ch;
+      font-size: 15px;
+    }
+
+    .cta-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 220px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 32px;
+      padding: 28px 0 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── Toast & Reveal ────────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      background: var(--card-solid);
+      border: 1px solid var(--accent-border);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      box-shadow: var(--shadow-card);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .hero-bento,
+      .career-grid,
+      .cta-card { grid-template-columns: 1fr; }
+      .hero-side { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .skills-bento { grid-template-columns: repeat(2, 1fr); }
+      .rfc-grid { grid-template-columns: 1fr; }
+      .arch-nodes { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      .hero-side,
+      .focus-grid,
+      .projects-grid,
+      .skills-bento,
+      .arch-nodes { grid-template-columns: 1fr; }
+      .hero-main { padding: 26px 22px; }
+      .project-card, .project-card.featured, .cta-card { padding: 24px 20px; }
+      .cta-btns { min-width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .brand-dot { animation: none; }
+    }
+  </style>
 </head>
 <body>
-<div class="page">
+  <div class="bg-mesh" aria-hidden="true"></div>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">touqeerpathan.dev</div>
-  <ul class="nav-links">
-    <li><a href="#specialization">Focus</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-  </ul>
-  <a href="mailto:touqeerpathan75@gmail.com" class="nav-cta">Get in touch →</a>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-tag">Available for new projects</div>
-  <h1>
-    Touqeer Pathan
-  </h1>
-  <div class="hero-subtitle">
-    <span class="line2">Laravel &amp; Shopify Backend Developer — Ahmedabad, India</span>
-  </div>
-  <p class="hero-lede">
-    I build Laravel backends and Shopify applications — REST APIs, custom Shopify apps and extensions, payment gateway integrations, and multi-role admin systems. Three years of production work across fintech, e-commerce, loyalty programs, and delivery platforms, with 8+ projects shipped for international clients.<br><br>
-    My Shopify focus is the current extension architecture: Checkout UI Extensions, Shopify Functions, and Payment Extensions. On the Laravel side, it's structured API design, authentication, RBAC, and getting backend systems production-ready. Security is part of how I build — I've found and closed real vulnerabilities, not just run through a checklist.
-  </p>
-  <div class="hero-actions">
-    <a href="mailto:touqeerpathan75@gmail.com" class="btn-primary">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-      touqeerpathan75@gmail.com
-    </a>
-    <a href="https://github.com/touqeerpathan" target="_blank" rel="noopener" class="btn-ghost">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      GitHub
-    </a>
-    <a href="https://linkedin.com/in/touqeer-pathan" target="_blank" rel="noopener" class="btn-ghost">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      LinkedIn
-    </a>
-  </div>
-  <div class="hero-contacts">
-    <a href="tel:+917990847685">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18a2 2 0 0 1 2-2.18H6.5a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.69a16 16 0 0 0 7.4 7.4l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      +91 79908 47685
-    </a>
-    <a href="https://github.com/touqeerpathan" target="_blank" rel="noopener">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      touqeerpathan
-    </a>
-  </div>
-</div>
-
-<!-- SPECIALIZATION -->
-<div id="specialization" class="section">
-  <div class="section-header reveal">
-    <span class="section-num">01</span>
-    <div>
-      <span class="section-eyebrow">Where I focus</span>
-      <h2 class="section-title">Specialization</h2>
-    </div>
-  </div>
-  <div class="spec-grid reveal">
-
-    <div class="spec-card">
-      <div class="spec-card-icon">⚡</div>
-      <h3>Laravel Backend Development</h3>
-      <p>Custom REST APIs, RBAC, authentication systems, and multi-role admin backends built on Laravel. I've built backends for delivery platforms, social apps, waste management systems, and e-commerce products — production systems with proper structure, not quick prototypes.</p>
-      <span class="spec-tag">PHP · Laravel · MySQL · REST API</span>
-    </div>
-
-    <div class="spec-card">
-      <div class="spec-card-icon">🔌</div>
-      <h3>Shopify App Development</h3>
-      <p>Full Shopify app builds using App Bridge CLI 3.0 — Checkout UI Extensions, Theme App Extensions, Admin UI integrations, and Webhooks. I work on Shopify's current extension model, not the deprecated checkout.liquid path that Shopify is actively migrating merchants away from.</p>
-      <span class="spec-tag">App Bridge CLI 3.0 · Admin API</span>
-    </div>
-
-    <div class="spec-card">
-      <div class="spec-card-icon">⚙️</div>
-      <h3>Shopify Functions</h3>
-      <p>Custom Discount Functions and Cart Transform Functions — promotional rules, bundles, tiered pricing, automatic offers, and cart modification at checkout. Logic runs at the Shopify platform level, so it holds when the theme layer changes rather than breaking with every update.</p>
-      <span class="spec-tag">Discount Functions · Cart Transform</span>
-    </div>
-
-    <div class="spec-card">
-      <div class="spec-card-icon">🔐</div>
-      <h3>Payment Integration &amp; Backend Security</h3>
-      <p>Gateway integrations with Paystack, Flutterwave, and Checkout.com — webhook signature verification, server-side token storage, real-time transaction handling. OWASP Top 10 applied across every project. I've found and closed real token exposure and payment data vulnerabilities in production builds.</p>
-      <span class="spec-tag">OWASP · Webhook Verification</span>
-    </div>
-
-  </div>
-</div>
-
-<!-- CASE STUDIES -->
-<div id="work" class="section">
-  <div class="section-header reveal">
-    <span class="section-num">02</span>
-    <div>
-      <span class="section-eyebrow">Three projects, in detail</span>
-      <h2 class="section-title">Selected Work</h2>
-    </div>
-  </div>
-
-  <div class="case-grid">
-
-    <!-- Case 1 — Payment Extension -->
-    <div class="case-card reveal">
-      <div class="case-card-header">
-        <span class="case-num">Case 01 — Fintech</span>
-        <h3>Custom Shopify Payment Extension for a finance-sector merchant</h3>
-        <p>The project was to connect the merchant's own payment platform to Shopify checkout through a fully custom Payment Extension — handling authorization, transaction status, and the complete payment flow, including 3DS. Not a redirect to an external page; a real integration that lives inside checkout.</p>
-        <p>While building the extension, I found API tokens being passed directly in frontend requests — exposed in the browser's network tab and bundled in JavaScript. For a finance-sector client, that needed fixing before the integration went live.</p>
-      </div>
-
-      <div class="diff-block">
-        <div class="diff-titlebar">
-          <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
-          <span>payment-flow.diff — before → after</span>
-        </div>
-        <div class="diff-body">
-          <div class="diff-row neutral"><span class="diff-sig"> </span><span class="diff-comment">// Before: token passed directly from the browser</span></div>
-          <div class="diff-row removed"><span class="diff-sig">−</span><span>fetch('/api/payment', { token: window.__API_TOKEN__ })</span></div>
-          <div class="diff-row removed"><span class="diff-sig">−</span><span>// ⚠ token visible in network tab &amp; frontend bundle</span></div>
-          <div class="diff-gap"></div>
-          <div class="diff-row neutral"><span class="diff-sig"> </span><span class="diff-comment">// After: token held server-side, verified per-request</span></div>
-          <div class="diff-row added"><span class="diff-sig">+</span><span>fetch('/api/payment/initiate', { sessionId: encryptedRef })</span></div>
-          <div class="diff-row added"><span class="diff-sig">+</span><span>// ✓ token verified &amp; stored server-side via Laravel Sanctum</span></div>
-          <div class="diff-row added"><span class="diff-sig">+</span><span>// ✓ webhook signature validated on every callback</span></div>
-        </div>
-      </div>
-
-      <div class="case-result">
-        <span class="case-result-icon">✓</span>
-        <p><strong>Outcome:</strong> A working Payment Extension connecting the merchant's finance platform to Shopify checkout end-to-end. Token handling was moved server-side and webhook signatures are validated on every callback — fixed as part of the build, not added afterward.</p>
-      </div>
-    </div>
-
-    <!-- Case 2 — Loyalty App -->
-    <div class="case-card reveal">
-      <div class="case-card-body">
-        <span class="case-num">Case 02 — E-commerce</span>
-        <h3>Loyalty points inside Shopify checkout</h3>
-        <p>A merchant wanted customers to earn and redeem loyalty points without leaving the checkout flow. Their existing program lived in a separate portal — which meant most customers never used it at the moment it would actually influence a purchase.</p>
-        <p>I built a Shopify app integrating a third-party Stamp Loyalty API. Point balance and redemption surface inside checkout through a Checkout UI Extension; the backend handles issuance and redemption against the API. The merchant's existing loyalty program stays intact — the extension just puts it where purchase decisions actually happen.</p>
-      </div>
-    </div>
-
-    <!-- Case 3 — Shopify Functions -->
-    <div class="case-card reveal">
-      <div class="case-card-body">
-        <span class="case-num">Case 03 — E-commerce</span>
-        <h3>Checkout logic with Shopify Functions</h3>
-        <p>For several e-commerce clients, promotional rules were either theme-layer hacks or managed outside Shopify entirely. Theme hacks need reworking with every Shopify update; external tools create sync issues with cart state.</p>
-        <p>I've built custom Discount Functions and Cart Transform Functions to handle bundles, tiered pricing, and automatic offers at the Shopify platform level. The logic is server-side and isn't tied to theme state, so it keeps working when the storefront changes around it.</p>
-      </div>
-    </div>
-
-    <!-- Also shipped -->
-    <div class="also-card reveal">
-      <span class="section-eyebrow">Also shipped</span>
-      <p>Other production Laravel builds outside the headline cases.</p>
-      <div class="also-projects">
-        <div class="also-project">
-          <span class="also-project-name">Waste Management System</span>
-          <span class="also-project-desc">Full Laravel backend with RBAC across four user types — collectors, customers, warehouses, and admins. Modules for vehicle assignment and route management.</span>
-        </div>
-        <div class="also-project">
-          <span class="also-project-name">Grocery Delivery Platform</span>
-          <span class="also-project-desc">Multi-role backend with real-time order management, inventory tracking, and delivery agent assignment. Includes a complete admin panel.</span>
-        </div>
-        <div class="also-project">
-          <span class="also-project-name">Dating &amp; Social Platform</span>
-          <span class="also-project-desc">Laravel backend with real-time chat, matchmaking logic, and a full admin management system.</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- SKILLS -->
-<div id="skills" class="section">
-  <div class="section-header reveal">
-    <span class="section-num">03</span>
-    <div>
-      <span class="section-eyebrow">What I work with</span>
-      <h2 class="section-title">Stack &amp; Skills</h2>
-    </div>
-  </div>
-  <div class="skills-layout reveal">
-
-    <div class="skill-group">
-      <span class="skill-group-label">Core</span>
-      <div class="skill-tags">
-        <span class="skill-tag highlight">PHP</span>
-        <span class="skill-tag highlight">Laravel</span>
-        <span class="skill-tag">JavaScript</span>
-        <span class="skill-tag">Node.js</span>
-        <span class="skill-tag">SQL</span>
-      </div>
-    </div>
-
-    <div class="skill-group">
-      <span class="skill-group-label">Shopify</span>
-      <div class="skill-tags">
-        <span class="skill-tag highlight">Checkout UI Extensions</span>
-        <span class="skill-tag highlight">Discount Functions</span>
-        <span class="skill-tag">Cart Transform Functions</span>
-        <span class="skill-tag">Payment Extensions</span>
-        <span class="skill-tag">Theme App Extensions</span>
-        <span class="skill-tag">App Bridge CLI</span>
-        <span class="skill-tag">Admin API / GraphQL</span>
-        <span class="skill-tag">Webhooks</span>
-        <span class="skill-tag">Polaris</span>
-      </div>
-    </div>
-
-    <div class="skill-group">
-      <span class="skill-group-label">Security &amp; Auth</span>
-      <div class="skill-tags">
-        <span class="skill-tag highlight">OWASP Top 10</span>
-        <span class="skill-tag">Laravel Sanctum</span>
-        <span class="skill-tag">OAuth 2.0</span>
-        <span class="skill-tag">JWT</span>
-        <span class="skill-tag">RBAC</span>
-        <span class="skill-tag">CSRF Protection</span>
-        <span class="skill-tag">SQL Injection Prevention</span>
-        <span class="skill-tag">XSS Prevention</span>
-        <span class="skill-tag">Bcrypt Hashing</span>
-        <span class="skill-tag">Input Validation</span>
-      </div>
-    </div>
-
-    <div class="skill-group">
-      <span class="skill-group-label">Database &amp; APIs</span>
-      <div class="skill-tags">
-        <span class="skill-tag highlight">MySQL</span>
-        <span class="skill-tag">Eloquent ORM</span>
-        <span class="skill-tag">Database Schema Design</span>
-        <span class="skill-tag">REST API Design</span>
-        <span class="skill-tag">GraphQL API</span>
-        <span class="skill-tag">Postman</span>
-      </div>
-    </div>
-
-    <div class="skill-group wide">
-      <span class="skill-group-label">Infrastructure &amp; Tools</span>
-      <div class="skill-tags">
-        <span class="skill-tag">Git</span>
-        <span class="skill-tag">GitHub</span>
-        <span class="skill-tag">Bitbucket</span>
-        <span class="skill-tag">Linux (Ubuntu)</span>
-        <span class="skill-tag">Nginx</span>
-        <span class="skill-tag">Apache2</span>
-        <span class="skill-tag">Blade Templates</span>
-        <span class="skill-tag">HTML5 / CSS3</span>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- EXPERIENCE -->
-<div id="experience" class="section">
-  <div class="section-header reveal">
-    <span class="section-num">04</span>
-    <div>
-      <span class="section-eyebrow">Where I've worked</span>
-      <h2 class="section-title">Experience</h2>
-    </div>
-  </div>
-  <div class="exp-timeline">
-
-    <div class="exp-item reveal">
-      <span class="exp-when">Jul 2023 — Present</span>
-      <div class="exp-role">Web Developer</div>
-      <div class="exp-co">Shiv Technolabs Pvt. Ltd. — Ahmedabad</div>
-      <ul class="exp-list">
-        <li>Built custom Shopify applications for fintech and e-commerce clients using App Bridge CLI 3.0, Checkout UI Extensions, Theme App Extensions, and Admin UI integrations.</li>
-        <li>Developed Discount Function and Cart Transform Function extensions for custom promotional logic, bundle pricing, tiered discounts, and cart modification at checkout.</li>
-        <li>Built custom Shopify Payment Extensions; integrated Paystack, Flutterwave, and Checkout.com with webhook signature validation and real-time transaction status handling.</li>
-        <li>Identified and closed API token exposure and payment data vulnerabilities on a finance-sector project — moved token handling server-side and restructured the webhook verification flow.</li>
-        <li>Built a Shopify loyalty app integrating a third-party Stamp Loyalty API, enabling point issuance and redemption natively inside the Shopify checkout experience.</li>
-        <li>Applied OWASP Top 10 practices across all projects: input validation, CSRF and XSS prevention, SQL injection mitigation, Bcrypt hashing, and granular RBAC permission management.</li>
-        <li>Participated in adversarial code review sessions, evaluating implementations from an attacker's perspective to identify exploitable assumptions and edge cases.</li>
-        <li>Delivered full-stack Laravel backends for waste management, grocery delivery, and social platforms — multi-role RBAC, real-time features, and complete admin systems.</li>
+  <!-- FLOATING NAV -->
+  <div class="nav-wrap">
+    <nav aria-label="Primary navigation">
+      <a href="#top" class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>touqeer.pathan</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#focus">Focus</a></li>
+        <li><a href="#work">Case Studies</a></li>
+        <li><a href="#skills">Stack</a></li>
+        <li><a href="#experience">Experience</a></li>
       </ul>
-    </div>
-
-    <div class="exp-item reveal">
-      <span class="exp-when">Jan 2023 — Jul 2023</span>
-      <div class="exp-role">Trainee Web Developer</div>
-      <div class="exp-co">Shiv Technolabs Pvt. Ltd. — Ahmedabad</div>
-      <ul class="exp-list">
-        <li>Built Laravel backend modules with CRUD operations, Eloquent ORM relationships, and database schema design under senior supervision.</li>
-        <li>Developed and tested RESTful API endpoints with authentication flows, input validation, and sanitization.</li>
-        <li>Gained hands-on production experience with MVC architecture, Laravel migrations, and secure coding practices.</li>
-      </ul>
-    </div>
-
+      <div class="nav-right">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle color theme" title="Toggle Light / Dark Mode">
+          <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        <a href="mailto:touqeerpathan75@gmail.com" class="nav-cta">Hire Me →</a>
+      </div>
+    </nav>
   </div>
-</div>
 
-<!-- CLOSING CTA -->
-<div class="cta-section">
-  <div class="cta-inner reveal">
-    <div class="cta-text">
-      <h2>Have a Shopify or Laravel backend that needs building?</h2>
-      <p>Available for Shopify app development, Checkout UI Extensions, Shopify Functions, Payment Extensions, Laravel API development, payment integrations, and backend security reviews. Drop me a line.</p>
+  <main id="top" class="container">
+
+    <!-- HERO BENTO -->
+    <div class="hero-bento">
+      <div class="bento-card hero-main">
+        <div>
+          <div class="status-pill">
+            <span class="brand-dot" aria-hidden="true"></span>
+            Available for Shopify Plus, Laravel &amp; Backend Engineering
+          </div>
+          <h1 class="hero-title">Touqeer Khan Pathan</h1>
+          <div class="hero-role">PHP · Laravel · Shopify Backend &amp; Extensibility Developer</div>
+          <p class="hero-summary">
+            Full-stack &amp; backend developer with <strong>3+ years of production experience</strong> building scalable APIs, <strong>Shopify Checkout UI Extensions</strong>, <strong>Shopify Functions</strong>, and custom <strong>Payment Extensions</strong> across fintech, e-commerce, loyalty, and delivery platforms.
+          </p>
+          <p class="hero-summary" style="margin-top: 12px;">
+            I ship upgrade-safe Shopify Plus architectures backed by <strong>Laravel, React, Node.js, MySQL/PostgreSQL, and AWS</strong> — with hands-on <strong>OWASP Top 10</strong> security hardening built into every release.
+          </p>
+        </div>
+
+        <div class="hero-actions">
+          <a href="mailto:touqeerpathan75@gmail.com" class="btn btn-primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Contact Me
+          </a>
+          <button class="btn btn-secondary" type="button" id="copyEmailBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy Email
+          </button>
+          <a href="https://github.com/touqeerpathan" target="_blank" rel="noopener" class="btn btn-secondary">
+            GitHub ↗
+          </a>
+          <a href="https://linkedin.com/in/touqeer-pathan" target="_blank" rel="noopener" class="btn btn-secondary">
+            LinkedIn ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <!-- Profile Portrait Bento -->
+        <div class="bento-card profile-card">
+          <div class="profile-photo-wrap">
+            <img
+              src="profile.jpg"
+              alt="Portrait of Touqeer Khan Pathan, Laravel and Shopify Backend Developer"
+              class="profile-photo"
+            />
+            <div class="profile-badge-overlay">
+              <span>Ahmedabad, IN</span>
+              <span id="istClock">IST --:--</span>
+            </div>
+          </div>
+          <div class="profile-meta">
+            <div class="profile-meta-left">
+              <strong>Touqeer Pathan</strong>
+              <span>+91 79908 47685</span>
+            </div>
+            <div class="profile-quick-links">
+              <a href="tel:+917990847685" class="icon-btn" title="Call +91 79908 47685" aria-label="Call phone number">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18a2 2 0 0 1 2-2.18H6.5a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.69a16 16 0 0 0 7.4 7.4l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Engineering Telemetry Bento -->
+        <div class="bento-card telemetry-grid">
+          <div class="metric-box">
+            <div class="metric-val">3<span>+</span> yrs</div>
+            <span class="metric-lbl">Production Backend</span>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val">8<span>+</span></div>
+            <span class="metric-lbl">Client Systems Shipped</span>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val">Plus</div>
+            <span class="metric-lbl">Checkout Extensibility</span>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val">OWASP</div>
+            <span class="metric-lbl">Top 10 Hardened</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="cta-actions">
-      <a href="mailto:touqeerpathan75@gmail.com" class="btn-primary">Send an email →</a>
-      <a href="tel:+917990847685" class="btn-ghost">+91 79908 47685</a>
+
+    <!-- INTERACTIVE TERMINAL INSPECTOR -->
+    <div class="terminal-bento reveal" aria-label="Interactive developer CLI">
+      <div class="terminal-bar">
+        <div class="terminal-dots">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+          <span style="margin-left: 6px;">touqeer@prod:~ — interactive profile shell</span>
+        </div>
+        <div class="cmd-chips" role="group" aria-label="Quick terminal commands">
+          <button class="cmd-chip active" type="button" data-cmd="whoami">whoami</button>
+          <button class="cmd-chip" type="button" data-cmd="shopify">shopify --stack</button>
+          <button class="cmd-chip" type="button" data-cmd="laravel">laravel --arch</button>
+          <button class="cmd-chip" type="button" data-cmd="security">security --audit</button>
+          <button class="cmd-chip" type="button" data-cmd="contact">contact</button>
+        </div>
+      </div>
+      <div class="terminal-body">
+        <div class="term-prompt">
+          <span>$</span>
+          <input id="termInput" class="term-input" type="text" value="whoami" aria-label="Terminal command input" spellcheck="false" autocomplete="off" />
+        </div>
+        <div id="termOutput" class="term-output"></div>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- FOOTER -->
-<footer>
-  <span class="footer-name">Touqeer Khan Pathan — Ahmedabad, India</span>
-  <div class="footer-links">
-    <a href="mailto:touqeerpathan75@gmail.com">Email</a>
-    <a href="https://linkedin.com/in/touqeer-pathan" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://github.com/touqeerpathan" target="_blank" rel="noopener">GitHub</a>
-  </div>
-</footer>
+    <!-- 01. SPECIALIZATION / MARKET DEMAND -->
+    <section id="focus">
+      <div class="sec-head reveal">
+        <div>
+          <span class="sec-eyebrow">01 / High-Demand Capabilities</span>
+          <h2 class="sec-title">What I Build for Teams &amp; Merchants</h2>
+        </div>
+        <p class="sec-sub">Modern Shopify Plus architecture and scalable Laravel backends built for reliability, compliance, and long-term maintainability.</p>
+      </div>
 
-</div>
+      <div class="focus-grid">
+        <article class="bento-card focus-card reveal">
+          <div>
+            <div class="focus-top">
+              <span class="focus-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              </span>
+              <span class="focus-badge">Checkout Extensibility</span>
+            </div>
+            <h3 style="margin-top: 16px;">Shopify App &amp; Checkout UI Development</h3>
+            <p>Upgrade-safe Shopify apps using App Bridge CLI 3.0, React-based Checkout UI Extensions, Theme App Extensions, and Admin GraphQL APIs — replacing retired <code style="font-family:var(--mono);font-size:13px;">checkout.liquid</code> workflows cleanly.</p>
+          </div>
+          <div class="pill-row">
+            <span class="pill accent">Checkout UI Extensions</span>
+            <span class="pill">App Bridge CLI 3.0</span>
+            <span class="pill">React</span>
+            <span class="pill">GraphQL</span>
+          </div>
+        </article>
 
-<script>
-// Scroll reveal
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+        <article class="bento-card focus-card reveal">
+          <div>
+            <div class="focus-top">
+              <span class="focus-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </span>
+              <span class="focus-badge">Scripts Replacement</span>
+            </div>
+            <h3 style="margin-top: 16px;">Shopify Functions &amp; Commerce Rules</h3>
+            <p>Platform-level Discount Functions and Cart Transform Functions for bundles, tiered discounts, and automatic offers. Executes natively on Shopify so rules never break during storefront theme updates.</p>
+          </div>
+          <div class="pill-row">
+            <span class="pill accent">Discount Functions</span>
+            <span class="pill">Cart Transform</span>
+            <span class="pill">Metafields</span>
+            <span class="pill">Webhooks</span>
+          </div>
+        </article>
+
+        <article class="bento-card focus-card reveal">
+          <div>
+            <div class="focus-top">
+              <span class="focus-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </span>
+              <span class="focus-badge">AWS-Backed APIs</span>
+            </div>
+            <h3 style="margin-top: 16px;">Laravel, Node.js &amp; Database Backends</h3>
+            <p>Structured REST and GraphQL APIs, multi-role RBAC systems, and service-oriented MVC backends powered by MySQL and PostgreSQL — built and shipped in AWS-backed Agile environments.</p>
+          </div>
+          <div class="pill-row">
+            <span class="pill accent">Laravel / PHP</span>
+            <span class="pill">Node.js</span>
+            <span class="pill">MySQL / PostgreSQL</span>
+            <span class="pill">AWS</span>
+          </div>
+        </article>
+
+        <article class="bento-card focus-card reveal">
+          <div>
+            <div class="focus-top">
+              <span class="focus-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              <span class="focus-badge">Fintech &amp; OWASP</span>
+            </div>
+            <h3 style="margin-top: 16px;">Payment Extensions &amp; Security Hardening</h3>
+            <p>Custom Shopify Payment Extensions and integrations with Paystack, Flutterwave, and Checkout.com. Server-side token storage, webhook signature verification, and adversarial OWASP Top 10 code hardening.</p>
+          </div>
+          <div class="pill-row">
+            <span class="pill accent">Payment Extensions</span>
+            <span class="pill">Sanctum / OAuth 2.0</span>
+            <span class="pill">HMAC Webhooks</span>
+            <span class="pill">OWASP Top 10</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 02. CASE STUDIES -->
+    <section id="work">
+      <div class="sec-head reveal">
+        <div>
+          <span class="sec-eyebrow">02 / Engineering Proof</span>
+          <h2 class="sec-title">Selected Case Studies</h2>
+        </div>
+        <div class="filter-tabs" role="tablist" aria-label="Filter projects by category">
+          <button class="filter-tab active" type="button" data-filter="all">All (6)</button>
+          <button class="filter-tab" type="button" data-filter="shopify">Shopify &amp; Fintech</button>
+          <button class="filter-tab" type="button" data-filter="laravel">Laravel Systems</button>
+        </div>
+      </div>
+
+      <div class="projects-grid">
+        <!-- CASE 01 FEATURED -->
+        <article class="bento-card project-card featured reveal" data-cat="shopify">
+          <div class="proj-meta">
+            <span class="proj-tag">Case 01 · Fintech &amp; Security</span>
+            <div class="pill-row">
+              <span class="pill accent">Payment Extensions</span>
+              <span class="pill">Laravel Sanctum</span>
+              <span class="pill">3DS Flow</span>
+              <span class="pill">OWASP</span>
+            </div>
+          </div>
+          <h3 class="proj-title">Custom Shopify Payment Extension &amp; Token Exposure Remediation</h3>
+          <p class="proj-desc">
+            Connected a finance-sector merchant's proprietary payment platform directly to Shopify checkout via a custom Payment Extension — handling authorization, 3DS verification, and real-time transaction state inside checkout rather than redirecting off-site.
+          </p>
+
+          <div class="rfc-grid">
+            <div class="rfc-box">
+              <span class="rfc-label">Vulnerability Found</span>
+              <p>API tokens were passed in frontend browser requests, exposing sensitive credentials in the network tab and JS bundle.</p>
+            </div>
+            <div class="rfc-box">
+              <span class="rfc-label">Architecture Fix</span>
+              <p>Moved all token exchange server-side using Laravel Sanctum with encrypted session references and strict request validation.</p>
+            </div>
+            <div class="rfc-box">
+              <span class="rfc-label">Production Outcome</span>
+              <p>End-to-end 3DS checkout payments with signed HMAC callback verification hardened prior to launch.</p>
+            </div>
+          </div>
+
+          <div class="case-inspector">
+            <div class="inspector-bar">
+              <div class="terminal-dots">
+                <span class="dot dot-r"></span>
+                <span class="dot dot-y"></span>
+                <span class="dot dot-g"></span>
+                <span style="margin-left: 6px;">payment-extension-audit</span>
+              </div>
+              <div class="inspector-tabs">
+                <button class="insp-btn active" type="button" data-insp="diff">Security Diff</button>
+                <button class="insp-btn" type="button" data-insp="flow">Request Flow Explorer</button>
+              </div>
+            </div>
+
+            <div class="inspector-panel" id="insp-diff">
+              <div class="diff-line com">// Before: credential leaked in client request &amp; JS bundle</div>
+              <div class="diff-line rem"><span>−</span><span>fetch('/api/payment', { headers: { Authorization: window.__API_TOKEN__ } })</span></div>
+              <div class="diff-line rem"><span>−</span><span>// ⚠ Token exposed in browser DevTools &amp; lacks callback verification</span></div>
+              <div style="height: 10px;"></div>
+              <div class="diff-line com">// After: token isolated server-side with signed webhooks</div>
+              <div class="diff-line add"><span>+</span><span>fetch('/api/payment/initiate', { body: JSON.stringify({ sessionRef: encryptedId }) })</span></div>
+              <div class="diff-line add"><span>+</span><span>// ✓ Token vaulted server-side via Laravel Sanctum + per-request verification</span></div>
+              <div class="diff-line add"><span>+</span><span>// ✓ Webhook HMAC signature verified on every async status callback</span></div>
+            </div>
+
+            <div class="inspector-panel hidden" id="insp-flow">
+              <div class="arch-nodes">
+                <button class="arch-node active" type="button" data-step="0">
+                  <span class="arch-step">01 / FRONTEND</span>
+                  <span class="arch-name">Shopify Checkout</span>
+                </button>
+                <button class="arch-node" type="button" data-step="1">
+                  <span class="arch-step">02 / EXTENSION</span>
+                  <span class="arch-name">Payment Extension</span>
+                </button>
+                <button class="arch-node" type="button" data-step="2">
+                  <span class="arch-step">03 / BACKEND</span>
+                  <span class="arch-name">Laravel Vault API</span>
+                </button>
+                <button class="arch-node" type="button" data-step="3">
+                  <span class="arch-step">04 / CALLBACK</span>
+                  <span class="arch-name">3DS &amp; Webhook</span>
+                </button>
+              </div>
+              <div class="arch-detail" id="archDetail">
+                01 / Shopify Checkout submits an encrypted session reference only — zero API secrets ever reach the browser or JS bundle.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CASE 02 -->
+        <article class="bento-card project-card reveal" data-cat="shopify">
+          <div class="proj-meta">
+            <span class="proj-tag">Case 02 · E-Commerce Loyalty</span>
+            <div class="pill-row">
+              <span class="pill accent">Checkout UI</span>
+              <span class="pill">Laravel</span>
+              <span class="pill">Stamp API</span>
+            </div>
+          </div>
+          <h3 class="proj-title">In-Checkout Loyalty Points &amp; Rewards App</h3>
+          <p class="proj-desc">
+            Surfaced a merchant's third-party Stamp Loyalty program directly inside Shopify checkout via a Checkout UI Extension. Customers view balances and redeem points without leaving checkout, backed by Laravel workflows managing issuance, redemption, and MySQL state.
+          </p>
+        </article>
+
+        <!-- CASE 03 -->
+        <article class="bento-card project-card reveal" data-cat="shopify">
+          <div class="proj-meta">
+            <span class="proj-tag">Case 03 · Shopify Plus Logic</span>
+            <div class="pill-row">
+              <span class="pill accent">Shopify Functions</span>
+              <span class="pill">GraphQL</span>
+              <span class="pill">Cart Transform</span>
+            </div>
+          </div>
+          <h3 class="proj-title">Platform-Level Promotions with Shopify Functions</h3>
+          <p class="proj-desc">
+            Replaced fragile theme-layer scripts and external discount sync tools with custom Discount Functions and Cart Transform Functions. Handles bundles, tiered pricing, and automatic offers at the Shopify platform layer so storefront updates never break checkout math.
+          </p>
+        </article>
+
+        <!-- CASE 04 -->
+        <article class="bento-card project-card reveal" data-cat="laravel">
+          <div class="proj-meta">
+            <span class="proj-tag">Case 04 · Operations Backend</span>
+            <div class="pill-row">
+              <span class="pill accent">Laravel</span>
+              <span class="pill">RBAC</span>
+              <span class="pill">MySQL</span>
+            </div>
+          </div>
+          <h3 class="proj-title">Multi-Role Waste Management System</h3>
+          <p class="proj-desc">
+            Full Laravel backend and REST API powering four distinct permission tiers — collectors, customers, warehouses, and admins — with dedicated modules for vehicle assignment, route tracking, and secure operational data handling.
+          </p>
+        </article>
+
+        <!-- CASE 05 -->
+        <article class="bento-card project-card reveal" data-cat="laravel">
+          <div class="proj-meta">
+            <span class="proj-tag">Case 05 · Commerce &amp; Logistics</span>
+            <div class="pill-row">
+              <span class="pill accent">Laravel</span>
+              <span class="pill">REST APIs</span>
+              <span class="pill">Admin Panel</span>
+            </div>
+          </div>
+          <h3 class="proj-title">Grocery Delivery Platform</h3>
+          <p class="proj-desc">
+            Service-oriented Laravel backend handling real-time order workflows, catalog &amp; inventory tracking, delivery agent assignment, strict request validation, and a complete administrative control panel.
+          </p>
+        </article>
+
+        <!-- CASE 06 -->
+        <article class="bento-card project-card reveal" data-cat="laravel">
+          <div class="proj-meta">
+            <span class="proj-tag">Case 06 · Real-Time Social</span>
+            <div class="pill-row">
+              <span class="pill accent">Laravel</span>
+              <span class="pill">Real-Time Chat</span>
+              <span class="pill">MySQL</span>
+            </div>
+          </div>
+          <h3 class="proj-title">Dating &amp; Social Platform</h3>
+          <p class="proj-desc">
+            Production Laravel backend powering real-time messaging, matchmaking algorithms, user authentication, and an administrative moderation suite.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 03. TECHNICAL MATRIX -->
+    <section id="skills">
+      <div class="sec-head reveal">
+        <div>
+          <span class="sec-eyebrow">03 / Tech Stack</span>
+          <h2 class="sec-title">Technical Matrix</h2>
+        </div>
+        <p class="sec-sub">Production tools across backend engineering, Shopify extensibility, databases, cloud infrastructure, and application security.</p>
+      </div>
+
+      <div class="skills-bento">
+        <div class="bento-card skill-box reveal">
+          <span class="skill-box-title">Languages &amp; Core</span>
+          <div class="pill-row">
+            <span class="pill accent">PHP</span>
+            <span class="pill accent">JavaScript</span>
+            <span class="pill accent">Node.js</span>
+            <span class="pill">SQL</span>
+            <span class="pill">HTML5</span>
+            <span class="pill">CSS3</span>
+          </div>
+        </div>
+
+        <div class="bento-card skill-box reveal">
+          <span class="skill-box-title">Frameworks &amp; APIs</span>
+          <div class="pill-row">
+            <span class="pill accent">Laravel</span>
+            <span class="pill accent">React</span>
+            <span class="pill">REST APIs</span>
+            <span class="pill">GraphQL API</span>
+            <span class="pill">Eloquent ORM</span>
+            <span class="pill">Blade</span>
+            <span class="pill">Polaris</span>
+          </div>
+        </div>
+
+        <div class="bento-card skill-box reveal">
+          <span class="skill-box-title">Shopify Ecosystem</span>
+          <div class="pill-row">
+            <span class="pill accent">Checkout UI Extensions</span>
+            <span class="pill accent">Discount Functions</span>
+            <span class="pill">Cart Transform Functions</span>
+            <span class="pill">Payment Extensions</span>
+            <span class="pill">Theme App Extensions</span>
+            <span class="pill">App Bridge CLI 3.0</span>
+            <span class="pill">Admin API &amp; Webhooks</span>
+          </div>
+        </div>
+
+        <div class="bento-card skill-box reveal">
+          <span class="skill-box-title">Data &amp; Cloud Infra</span>
+          <div class="pill-row">
+            <span class="pill accent">MySQL</span>
+            <span class="pill accent">PostgreSQL</span>
+            <span class="pill accent">AWS</span>
+            <span class="pill">Linux (Ubuntu)</span>
+            <span class="pill">Nginx</span>
+            <span class="pill">Apache2</span>
+          </div>
+        </div>
+
+        <div class="bento-card skill-box reveal">
+          <span class="skill-box-title">Security &amp; Auth</span>
+          <div class="pill-row">
+            <span class="pill accent">OWASP Top 10</span>
+            <span class="pill">Laravel Sanctum</span>
+            <span class="pill">OAuth 2.0</span>
+            <span class="pill">JWT</span>
+            <span class="pill">RBAC</span>
+            <span class="pill">Webhook Signatures</span>
+            <span class="pill">CSRF / XSS / SQLi</span>
+            <span class="pill">Bcrypt</span>
+          </div>
+        </div>
+
+        <div class="bento-card skill-box reveal">
+          <span class="skill-box-title">Payments &amp; Tooling</span>
+          <div class="pill-row">
+            <span class="pill accent">Paystack</span>
+            <span class="pill accent">Flutterwave</span>
+            <span class="pill accent">Checkout.com</span>
+            <span class="pill">Git / GitHub / Bitbucket</span>
+            <span class="pill">Postman</span>
+            <span class="pill">Agile / Code Review</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. EXPERIENCE & EDUCATION -->
+    <section id="experience">
+      <div class="sec-head reveal">
+        <div>
+          <span class="sec-eyebrow">04 / Track Record</span>
+          <h2 class="sec-title">Experience &amp; Education</h2>
+        </div>
+      </div>
+
+      <div class="career-grid">
+        <div class="bento-card timeline-card reveal">
+          <div class="timeline">
+            <div class="tl-item">
+              <span class="tl-date">Jul 2023 — Present · Ahmedabad, India</span>
+              <h3 class="tl-role">Web Developer</h3>
+              <div class="tl-company">Shiv Technolabs Pvt. Ltd.</div>
+              <ul class="tl-list">
+                <li>Built custom Shopify apps using App Bridge CLI 3.0, Checkout UI Extensions, Theme App Extensions, and Admin UI integrations.</li>
+                <li>Implemented Discount Functions and Cart Transform Functions for bundle pricing, tiered discounts, and platform-level cart logic.</li>
+                <li>Engineered Shopify Payment Extensions and third-party gateway integrations (Paystack, Flutterwave, Checkout.com) with HMAC webhook verification.</li>
+                <li>Identified and closed production API token exposure on a fintech project by shifting secrets server-side via Laravel Sanctum.</li>
+                <li>Built a Stamp Loyalty integration in Laravel + Shopify Checkout UI Extensions and delivered multi-role Laravel backends across AWS-backed Agile teams.</li>
+                <li>Applied OWASP Top 10 standards and participated in adversarial code reviews to eliminate exploitable assumptions early.</li>
+              </ul>
+            </div>
+
+            <div class="tl-item">
+              <span class="tl-date">Jan 2023 — Jul 2023 · Ahmedabad, India</span>
+              <h3 class="tl-role">Trainee Web Developer</h3>
+              <div class="tl-company">Shiv Technolabs Pvt. Ltd.</div>
+              <ul class="tl-list">
+                <li>Built Laravel backend modules and RESTful APIs using Eloquent ORM, migrations, authentication flows, and clean MVC structure.</li>
+                <li>Strengthened secure coding practices through input sanitization, validation, debugging, testing, and senior code review support.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-stack">
+          <div class="bento-card edu-card reveal">
+            <span class="skill-box-title">Education</span>
+            <h3 class="edu-degree">Bachelor of Computer Applications (BCA)</h3>
+            <div class="edu-school">Gujarat University</div>
+            <div class="edu-meta">Ahmedabad, India · 2018 – 2021</div>
+          </div>
+
+          <div class="bento-card services-card reveal">
+            <span class="skill-box-title" style="display:block; margin-bottom: 10px;">How I Can Help Right Now</span>
+            <div class="service-item">
+              <span><strong>Shopify Plus Migrations</strong></span>
+              <span class="pill">Scripts → Functions</span>
+            </div>
+            <div class="service-item">
+              <span><strong>Custom Checkout Extensions</strong></span>
+              <span class="pill">React + App Bridge</span>
+            </div>
+            <div class="service-item">
+              <span><strong>Laravel / Node APIs</strong></span>
+              <span class="pill">MySQL / Postgres</span>
+            </div>
+            <div class="service-item">
+              <span><strong>Payment &amp; Security Audits</strong></span>
+              <span class="pill">OWASP / Webhooks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING CTA -->
+    <section>
+      <div class="bento-card cta-card reveal">
+        <div>
+          <span class="sec-eyebrow">05 / Let's Build</span>
+          <h2>Need a Shopify Extensibility or Laravel backend engineer?</h2>
+          <p>
+            Available for full-time backend roles, agency partnerships, and custom Shopify Plus or Laravel projects. Let's ship something reliable and secure.
+          </p>
+        </div>
+        <div class="cta-btns">
+          <a href="mailto:touqeerpathan75@gmail.com" class="btn btn-primary" style="justify-content: center;">
+            touqeerpathan75@gmail.com →
+          </a>
+          <a href="tel:+917990847685" class="btn btn-secondary" style="justify-content: center;">
+            +91 79908 47685
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>Touqeer Khan Pathan · Ahmedabad, India · <span style="color: var(--accent);">Status: 200 OK</span></span>
+      <div class="footer-links">
+        <a href="mailto:touqeerpathan75@gmail.com">Email</a>
+        <a href="https://github.com/touqeerpathan" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/touqeer-pathan" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#top">↑ Top</a>
+      </div>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // ── Theme Toggle ─────────────────────────────────────────────
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('tp_theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      root.setAttribute('data-theme', savedTheme);
     }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => observer.observe(el));
+    themeToggle.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('tp_theme', next);
+    });
 
-// Stagger children in grids
-document.querySelectorAll('.spec-grid, .skills-layout').forEach(grid => {
-  const children = grid.querySelectorAll('.spec-card, .skill-group');
-  children.forEach((child, i) => {
-    child.style.transitionDelay = `${i * 0.07}s`;
-  });
-});
-</script>
+    // ── Spotlight Cursor Tracking on Bento Cards ─────────────────
+    document.querySelectorAll('.bento-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+      });
+    });
+
+    // ── Live IST Clock ───────────────────────────────────────────
+    const istClock = document.getElementById('istClock');
+    function updateClock() {
+      try {
+        const now = new Date();
+        istClock.textContent = 'IST ' + now.toLocaleTimeString('en-IN', {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        });
+      } catch (_) {}
+    }
+    updateClock();
+    setInterval(updateClock, 30000);
+
+    // ── Copy Email Toast ─────────────────────────────────────────
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+
+    document.getElementById('copyEmailBtn').addEventListener('click', async () => {
+      const email = 'touqeerpathan75@gmail.com';
+      try {
+        await navigator.clipboard.writeText(email);
+        showToast('Copied: touqeerpathan75@gmail.com');
+      } catch {
+        showToast(email);
+      }
+    });
+
+    // ── Interactive Terminal ─────────────────────────────────────
+    const commands = {
+      whoami: `{
+  "name": "Touqeer Khan Pathan",
+  "role": "PHP | Laravel | Shopify Backend Developer",
+  "experience": "3+ years (8+ production client projects)",
+  "location": "Ahmedabad, India",
+  "education": "BCA — Gujarat University (2018–2021)"
+}`,
+      shopify: `// Modern Shopify Plus Extensibility Stack
+- Checkout UI Extensions (React / App Bridge CLI 3.0)
+- Shopify Functions (Discount Functions, Cart Transform)
+- Custom Payment Extensions (3DS, authorization, callbacks)
+- Theme App Extensions, Admin GraphQL API & Webhooks`,
+      laravel: `// Scalable Backend Architecture
+- PHP / Laravel (REST APIs, GraphQL, Eloquent ORM, Queues)
+- Node.js + React full-stack integrations
+- Databases: MySQL & PostgreSQL schema design
+- Cloud & Infra: AWS, Ubuntu Linux, Nginx, Apache2`,
+      security: `[OWASP TOP 10 AUDIT READY]
+✓ Server-side API token isolation (Laravel Sanctum / OAuth 2.0 / JWT)
+✓ HMAC webhook signature verification on payment callbacks
+✓ Granular multi-role RBAC + CSRF / XSS / SQLi prevention
+✓ Adversarial code review mindset`,
+      contact: `Email:    touqeerpathan75@gmail.com
+Phone:    +91 79908 47685
+GitHub:   https://github.com/touqeerpathan
+LinkedIn: https://linkedin.com/in/touqeer-pathan`,
+      help: `Available commands: whoami | shopify | laravel | security | contact`
+    };
+
+    const termInput = document.getElementById('termInput');
+    const termOutput = document.getElementById('termOutput');
+    const cmdChips = document.querySelectorAll('.cmd-chip');
+
+    function runCommand(raw) {
+      const clean = raw.trim().toLowerCase().split(' ')[0];
+      const key = commands[clean] ? clean : (raw.includes('shopify') ? 'shopify' : raw.includes('laravel') ? 'laravel' : raw.includes('security') ? 'security' : clean);
+      termOutput.textContent = commands[key] || `Command not found: "${raw}". Try: whoami, shopify, laravel, security, contact`;
+      cmdChips.forEach(c => c.classList.toggle('active', c.dataset.cmd === key));
+    }
+
+    runCommand('whoami');
+
+    cmdChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const map = {
+          whoami: 'whoami',
+          shopify: 'shopify --stack',
+          laravel: 'laravel --arch',
+          security: 'security --audit',
+          contact: 'contact'
+        };
+        termInput.value = map[chip.dataset.cmd] || chip.dataset.cmd;
+        runCommand(chip.dataset.cmd);
+      });
+    });
+
+    termInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') runCommand(termInput.value);
+    });
+
+    // ── Project Filter Tabs ──────────────────────────────────────
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const projectCards = document.querySelectorAll('.project-card');
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const filter = tab.dataset.filter;
+        filterTabs.forEach(t => t.classList.toggle('active', t === tab));
+        projectCards.forEach(card => {
+          const match = filter === 'all' || card.dataset.cat === filter;
+          card.classList.toggle('hidden', !match);
+        });
+      });
+    });
+
+    // ── Case 01 Inspector Tabs & Architecture Step Explorer ──────
+    const inspBtns = document.querySelectorAll('.insp-btn');
+    const inspDiff = document.getElementById('insp-diff');
+    const inspFlow = document.getElementById('insp-flow');
+
+    inspBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.insp;
+        inspBtns.forEach(b => b.classList.toggle('active', b === btn));
+        inspDiff.classList.toggle('hidden', target !== 'diff');
+        inspFlow.classList.toggle('hidden', target !== 'flow');
+      });
+    });
+
+    const archSteps = [
+      '01 / Shopify Checkout submits an encrypted session reference only — zero API secrets ever reach the browser or JS bundle.',
+      '02 / Custom Shopify Payment Extension orchestrates native in-checkout payment & 3DS flows without redirecting merchants off-site.',
+      '03 / Laravel Backend resolves the encrypted session via Laravel Sanctum, attaches server-vaulted credentials, and calls the processor.',
+      '04 / Async payment webhooks return to Laravel where HMAC signatures are verified before updating Shopify transaction state.'
+    ];
+    const archNodes = document.querySelectorAll('.arch-node');
+    const archDetail = document.getElementById('archDetail');
+
+    archNodes.forEach(node => {
+      node.addEventListener('click', () => {
+        const idx = Number(node.dataset.step);
+        archNodes.forEach(n => n.classList.toggle('active', n === node));
+        archDetail.textContent = archSteps[idx];
+      });
+    });
+
+    // ── Scroll Reveal ────────────────────────────────────────────
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
